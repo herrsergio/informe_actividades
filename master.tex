@@ -1,0 +1,73 @@
+% Informe de actividades profesionales
+% Sergio Cuellar
+% 26 Marzo 2011
+
+
+
+% Define tamanio de papel y tamaño de la fuente, así como la clase book
+\documentclass[12pt,oneside]{book}
+
+% Permite usar acentos y ñ
+\usepackage[utf8x]{inputenc}
+
+% Define algunos paquetes a usar a lo largo del documento
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+
+\usepackage{latexsym}
+
+% Convierte los títulos a español (Indice General, Capítulo, etc.)
+\usepackage[activeacute,spanish]{babel}
+
+% Para incluir imágenes
+%\usepackage[pdftex]{graphicx}
+\usepackage[dvips]{graphicx}
+
+% Para que los headers se vean bonitos
+\usepackage{fancyhdr}
+
+% Para modificar margenes
+\usepackage[letterpaper,top=3cm,bottom=2cm]{geometry}
+
+% Para usar pstricks
+\usepackage{pstricks}
+
+% Para incluir urls
+\usepackage{url}
+
+
+% Para hacer referencias a etiquetas de otros documentos
+\makeindex
+
+% Esto ya no me acuerdo para que es
+\DeclareGraphicsRule{.gif}{eps}{.gif.bb}{`convert #1 'eps:-' }
+\DeclareGraphicsRule{.jpg}{eps}{.jpg.bb}{`convert #1 'eps:-' }
+
+% Esto permite tener subsubsecciones
+\setcounter{tocdepth}{99}
+\setcounter{secnumdepth}{99}
+
+% Para cuando se pongan tablas no diga Cuadro sino Tabla
+% Cuadro se oye raro, aunque según los españoletes es lo correcto
+% coño joder, jilipollas
+\addto\captionsspanish{
+\def\tablename{Tabla}
+}
+
+\begin{document}
+\frontmatter
+\tableofcontents
+
+% Esto sirve para que entre parrafo y parrafo se deje un
+% espacio en blanco definido por el primer número (los demás no sé
+% qué signifiquen), ya que la clase book no lo tiene.
+\setlength{\parskip}{3ex plus 0.5ex minus 0.2ex}
+
+\mainmatter
+
+\include{objetivos}
+\include{introduccion}
+\include{desarrollo}
+
+\end{document}
