@@ -40,6 +40,16 @@ Indentation Mode=0
 Mode=LaTeX
 ReadWrite=true
 
+[item:desarrollo.tex]
+archive=true
+column=3145776
+encoding=
+highlight=
+line=0
+mode=
+open=true
+order=-1
+
 [item:informe_actividades.kilepr]
 archive=true
 column=4
