@@ -32,13 +32,10 @@ Cada uno de los restaurantes cuenta con una computadora, en la cual se efectúan
  \item Actividades gerenciales (correo electrónico, consultas web de la intranet, uso de procesador de textos y hoja de cálculo, etc).
 \end{itemize}
 
-\subsection{Software utilizado}
-\label{subsec:software}
+\subsection{Software Libre}
+\label{subsec:software_libre}
 
 Una de las características principales del sistema en restaurantes, es que casi en su totalidad, a excepción del punto de venta que fue desarrollado por la compañía, es software libre.
-
-\subsubsection{Software Libre}
-\label{sec:software_libre}
 
 El software libre es software que puede ser usado, estudiado y modificado sin restricción y el cual puede ser copiado y redistribuido en su forma modificada u original, ya sea sin restricciones o con mínimas restricciones que aseguren que los siguientes usuarios del software puedan seguir haciendo estas actividades. El software libre es generalmente disponible sin cargo alguno pero puede tener algunas cuotas, por ejemplo para ser distribuido en forma de CDs u otras formas.
 
@@ -66,4 +63,46 @@ El sistema en los restaurantes se compone de:
  \item OpenOffice.org
  \item Herramientas GNU (bash, ksh, awk, perl, etc.)
  \item Sistema punto de venta SUS/FMS (propietario, desarrollado por la misma compañía.
+\end{itemize}
+
+\subsection{GNU/Linux}
+\label{sec:linux}
+
+GNU/Linux se refiere al sistema operativo que utiliza el kernel Linux y las herramientas GNU. El kernel Linux puede ser instalado en una gran variedad de hardware, desde teléfonos móviles, computadoras tipo tableta, consolas de videojuegos, hasta mainframes y supercomputadoras. El kernel de Linux fue iniciado en 1991 por el finlandés Linus Torvalds. Las herramientas del sistema y librerías conocidas como GNU, fueron en un principio desarrolladas por Richard Stallman en 1983.
+
+Algunas características del kernel de Linux son:
+
+\begin{itemize}
+ \item Es multitareas, permite ejecutar diferentes programas al mismo tiempo.
+ \item Es multiusuario, distintos usuarios pueden estar conectados a una misma computadora al mismo tiempo.
+ \item Es multiplataforma, puede ser instalado en distintos tipo de arquitectura de procesadores.
+ \item Es multihilo, Linux tiene soporte en kernel nativo para el control de múltiples hilos independientes.
+ \item Tiene soporte a una gran cantidad de sistemas de archivos (ext2, ext3, ext4, ReiserFS, XFS, JFS, FAT32, etc.).
+\end{itemize}
+
+
+\subsection{Apache Tomcat}
+\label{sec:tomcat}
+
+Apache Tomcat o simplemente Tomcat es un contenedor de servlets desarrollado por la Apache Software Foundation. Tomcat implementa las especificaciones de Java Servlet y JavaServer Pages (JSP) de Sun Microsystems (ahora Oracle).
+
+Un servlet es un tipo de clase de Java que es usada para extender las capacidades de un servidor que contienen aplicaciones que son accedidas mediante un modelo de programación petición-respuesta. Si bien, un servlet puede responder cualquier tipo de petición, son comúnmente usados en aplicaciones contenidas en un servidor web.
+
+Los JavaServer Pages, mejor conocidos como JSPs es una tecnología de Java que ayuda a los desarrolladores de software a generar páginas web de manera dinámica basadas en HTML, XML o algún otro tipo de documento.
+
+\subsection{Servidor HTTP Apache}
+\label{sec:apache}
+
+El servidor HTTP Apache, o mejor conocido únicamente como Apache, es un servidor web que implementa el protocolo HTTP/1.1. Una de las mayores ventajas de Apache es que puede ser mejorado con la ayuda de módulos compilados que extienden la funcionalidad del servidor. Hay módulos que permiten la interacción con distintos lenguajes de programación como Perl, Pyhton, PHP, etc. Existen módulos de autenticación para aumentar la seguridad del servidor, como mod\_auth, mod\_access, etc. Una de las características más importantes de Apache es el manejo de host virtuales, lo que permite que un servidor Apache maneje diferentes sitios web.
+
+Tomcat y Apache pueden ser conectados a través del conector mod\_jk. Eso es de gran ayuda, por ejemplo, cuando se tienen páginas programadas en PHP y en JSP, y se quiere tener un único puerto de acceso a la página principal. Con mod\_jk, Apache recibe todas las peticiones y les da respuesta únicamente las de tipo PHP y HTML, y redirige a Tomcat las que tienen que ver con JSPs. Esta implementación la realicé en PRB para evitar el uso del puerto 80 para reportes en PHP y el 8080 para reportes programados en JSP. Se unificó el URL que es ingresado en los restaurantes.
+
+\subsection{PostgreSQL}
+\label{sec:postgresql}
+
+PostgreSQL, o simplemente Postgres, es un sistema de gestión de base de datos relacional orientada a objetos (ORDBMS\footnote{object-relational database management system}). Algunas de sus características son:
+
+\begin{itemize}
+ \item Uso de lenguajes procedurales o mejor conocidos como \textit{store procedures}, permiten que bloques de código sean ejecutados por el servidor de base de datos y pueden ser escritos en lenguajes de programación distintos a SQL y C; y sirven para crear funciones definidas por el usuario (subrutinas, triggers, etc.). Pueden ser programados en Perl, Python, pgSQL, Tcl, principalmente.
+ \item Uso de índices, triggers
 \end{itemize}
