@@ -41,8 +41,11 @@
 \makeindex
 
 % Esto ya no me acuerdo para que es
-\DeclareGraphicsRule{.gif}{eps}{.gif.bb}{`convert #1 'eps:-' }
-\DeclareGraphicsRule{.jpg}{eps}{.jpg.bb}{`convert #1 'eps:-' }
+%\DeclareGraphicsRule{.gif}{eps}{.gif.bb}{`convert #1 'eps:-' }
+%\DeclareGraphicsRule{.jpg}{eps}{.jpg.bb}{`convert #1 'eps:-' }
+
+% Ruta para indicar en donde estan las imagenes a incluir
+\graphicspath{{./images/}}
 
 % Esto permite tener subsubsecciones
 \setcounter{tocdepth}{99}
