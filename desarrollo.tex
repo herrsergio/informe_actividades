@@ -145,15 +145,44 @@ Posee diccionarios ortográficos en varios idiomas. Puede usar extensiones para 
 \end{itemize}
 
 
-A continuación se muestran un diagrama que representa a muy grandes rasgos el sistema:
+A continuación se muestran un diagrama que representa a muy grandes rasgos el sistema en Pizza Hut:
 
 \begin{figure}[htb]
  \begin{center}
   \includegraphics[scale=0.7]{diagrama_ph_sus_1.png}
  \end{center}
- \caption{Sistema en restaurantes}
- \label{fig:sist_rest}
+ \caption{Sistema en restaurantes PH}
+ \label{fig:sist_rest_ph}
 \end{figure}
 
+El sistema se compone de una computadora en la cual se ejecuta el sistema punto de venta, se generan reportes propios del punto de venta, el gerente del restaurante consulta el correo electrónico, consulta reportes web propios del restaurante y de la intranet y realiza actividades propias de la operación (como cierres de inventarios, altas/bajas de empleados, etc.). Posee una impresora láser para imprimir documentos, reportes, etc.
+
+La computadora tiene una conexión a internet protegida por un firewall y comunicación a la VPN\footnote{Virtual Private Network, red privada virtual} de la empresa.
+
+Debido a la gran cantidad de equipo que se le puede conectar a la computadora, entre terminales, cajas registradoras e impresoras de tickets, principalmente, se hace uso de un concentrador de puertos seriales, a los cuales se conectan todos los dispositivos. Estos concentradores pueden ser de 6 o 12 puertos y pueden ser conectados más de uno, en caso necesario. La impresora es de matriz y se manda la impresión de los tickets una vez terminada de capturar la orden.
+
+Las terminales, en caso de PH, sirven para tener el punto de venta, que se ejecuta en la computadora, en cada una de ellas, y así poder tomar varias ordenes al mismo tiempo.
 
 
+La siguiente figura muestra el sistema en KFC a grandes rasgos:
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.7]{diagrama_kfc_sus_1.png}
+ \end{center}
+ \caption{Sistema en restaurantes KFC}
+ \label{fig:sist_rest_kfc}
+\end{figure}
+
+A diferencia del sistema en PH, se cuentan con cajas registradoras en lugar de terminales. Estas cajas registradoras son de la marca Panasonic, y se tienen dos modelos: touchscreen para restaurantes con un gran número de transacciones y de teclado para las demás. Se cuenta con un programa desarrollado en la empresa que convierte la salida de las cajas registradoras en registros de venta que son ingresados al punto de venta. Cada caja resgistradora cuenta con su propia impresora de tickets. Dentro del grupo de cajas registradoras se debe tener una especial llamada \textit{master}, la cual es la encargada de trasmitir programación a las secundarias, así como también de recibir información de venta de las demás cajas para ser impresas en el impresor de auditoría. A partir de un desarrollo realizado por mi, esta auditoría se dejó de imprimir y ahora es almacenada de manera electrónica. (Ver \ref{sec:auditoria}).
+
+
+\section{Actividades Desarrolladas}
+\label{sec:rep_desarrollo}
+
+A continuación se presentan algunas actividades desarrolladas en la empresa.
+
+\subsection{Auditoría Electrónica}
+\label{sec:auditoria}
+
+La operación del negocio debe ser vigilada por algún medio, en el cual se plasme un historial de ventas de cada caja registradora en KFC. 
