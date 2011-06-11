@@ -174,7 +174,23 @@ La siguiente figura muestra el sistema en KFC a grandes rasgos:
  \label{fig:sist_rest_kfc}
 \end{figure}
 
-A diferencia del sistema en PH, se cuentan con cajas registradoras en lugar de terminales. Estas cajas registradoras son de la marca Panasonic, y se tienen dos modelos: touchscreen para restaurantes con un gran número de transacciones y de teclado para las demás. Se cuenta con un programa desarrollado en la empresa que convierte la salida de las cajas registradoras en registros de venta que son ingresados al punto de venta. Cada caja resgistradora cuenta con su propia impresora de tickets. Dentro del grupo de cajas registradoras se debe tener una especial llamada \textit{master}, la cual es la encargada de trasmitir programación a las secundarias, así como también de recibir información de venta de las demás cajas para ser impresas en el impresor de auditoría. A partir de un desarrollo realizado por mi, esta auditoría se dejó de imprimir y ahora es almacenada de manera electrónica. (Ver \ref{sec:auditoria}).
+A diferencia del sistema en PH, se cuentan con cajas registradoras en lugar de terminales. Estas cajas registradoras son de la marca Panasonic, y se tienen dos modelos: touchscreen (Panasonic 790, que cuenta con sistema operativo Windows XP Embedded) para restaurantes con un gran número de transacciones y de teclado (Panasonic 5500, usando su propio firmware) para las demás. Se cuenta con un programa desarrollado en la empresa que convierte la salida de las cajas registradoras en registros de venta que son ingresados al punto de venta. Cada caja resgistradora cuenta con su propia impresora de tickets. Dentro del grupo de cajas registradoras se debe tener una especial llamada \textit{master}, la cual es la encargada de trasmitir programación a las secundarias, así como también de recibir información de venta de las demás cajas para ser impresas en el impresor de auditoría. A partir de un desarrollo realizado por mi, esta auditoría se dejó de imprimir y ahora es almacenada de manera electrónica. (Ver \ref{sec:auditoria}).
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.7]{panasonic_790.png}
+ \end{center}
+ \caption{Caja Panasonic 790}
+ \label{fig:pana_790}
+\end{figure}
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.7]{panasonic_5500.png}
+ \end{center}
+ \caption{Caja Panasonic 5500}
+ \label{fig:pana_5500}
+\end{figure}
 
 
 \section{Actividades Desarrolladas}
@@ -185,4 +201,12 @@ A continuación se presentan algunas actividades desarrolladas en la empresa.
 \subsection{Auditoría Electrónica}
 \label{sec:auditoria}
 
-La operación del negocio debe ser vigilada por algún medio, en el cual se plasme un historial de ventas de cada caja registradora en KFC. 
+La operación del negocio debe ser vigilada por algún medio, en el cual se plasme un historial de ventas de cada caja registradora en KFC. Es por esto que se cuenta con un impresor de tickets llamado de auditoría, el cual imprime el detalle de venta de cada venta y de cada caja.
+
+Una de las necesidades de negocio más importantes es la de reducción en el costo de venta. Por lo que se tomó la decisión de eliminar este impresor y almacenar la auditoría de manera electrónica. Con esto se ahorra los impresores de tickets, los gastos en mantenimiento de éstos y los rollos de papel en los más de 230 restaurantes KFC.
+
+Ambos modelos de cajas cuentan con puertos seriales para conectar impresores, además de poseer con un puerto Ethernet RJ-45. Cada caja registradora cuenta con una dirección IP privada para la comunicación con la caja \textit{master}, la cual se encarga, a través de este medio, de transmitirles programación y de recibir los tickets de las demás cajas, para formar la auditoría. 
+
+Por lo que se puede observar de esta descripción, es que hay dos maneras posibles de capturar la auditoría de la caja master: por el puerto serial que manda los datos al impresor, o mediante la captura de los paquetes de red que le llegan a la caja master provenientes de las demás cajas. Se optó por usar la salida del puerto seria hacia al impresor, ya que al mandar a imprimir se manda el ticket integro junto con los caracteres de control para la impresora. De la otra manera, se hubiese tenido que estudiar el protocolo de envio de información de las cajas a la caja master; lo que se sabe de manera certera, es que la comunicación es tipo UDP\footnote{User Datagram Protocol}.
+
+Al estar configurada la caja master para manejar la auditoría, se debe especificar el puerto serie por el que se mandará a imprimir, en caso de no tener conectado un impresor, la caja marcará un error en su pantalla. Las cajas cuentan con 
