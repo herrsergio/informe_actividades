@@ -174,7 +174,7 @@ La siguiente figura muestra el sistema en KFC a grandes rasgos:
  \label{fig:sist_rest_kfc}
 \end{figure}
 
-A diferencia del sistema en PH, se cuentan con cajas registradoras en lugar de terminales. Estas cajas registradoras son de la marca Panasonic, y se tienen dos modelos: touchscreen (Panasonic 790, que cuenta con sistema operativo Windows XP Embedded) para restaurantes con un gran número de transacciones y de teclado (Panasonic 5500, usando su propio firmware) para las demás. Se cuenta con un programa desarrollado en la empresa que convierte la salida de las cajas registradoras en registros de venta que son ingresados al punto de venta. Cada caja resgistradora cuenta con su propia impresora de tickets. Dentro del grupo de cajas registradoras se debe tener una especial llamada \textit{master}, la cual es la encargada de trasmitir programación a las secundarias, así como también de recibir información de venta de las demás cajas para ser impresas en el impresor de auditoría. A partir de un desarrollo realizado por mi, esta auditoría se dejó de imprimir y ahora es almacenada de manera electrónica. (Ver \ref{sec:auditoria}).
+A diferencia del sistema en PH, se cuentan con cajas registradoras en lugar de terminales. Estas cajas registradoras son de la marca Panasonic, y se tienen dos modelos: touchscreen (Panasonic 790, que cuenta con sistema operativo Windows XP Embedded) para restaurantes con un gran número de transacciones y de teclado (Panasonic 5500, usando su propio firmware) para las demás. Se cuenta con un programa desarrollado en la empresa que convierte la salida de las cajas registradoras en registros de venta que son ingresados al punto de venta. Cada caja resgistradora cuenta con su propia impresora de tickets. Dentro del grupo de cajas registradoras se debe tener una especial llamada \textit{master}, la cual es la encargada de trasmitir programación a las secundarias, así como también de recibir información de venta de las demás cajas para ser impresas en el impresor de auditoría. A partir de un desarrollo realizado por mi, esta auditoría se dejó de imprimir y ahora es almacenada de manera electrónica.
 
 \begin{figure}[htb]
  \begin{center}
@@ -215,7 +215,7 @@ El concentrador de puertos seriales es el modelo AccelePort  Xem de la marca Dig
 
 \begin{figure}[htb]
  \begin{center}
-  \includegraphics{acceleport_xem_lg.png}
+  \includegraphics[scale=0.5]{acceleport_xem_lg.png}
  \end{center}
  \caption{AccelePort Xem de Digi con su tarjeta}
  \label{fig:digi}
@@ -223,28 +223,31 @@ El concentrador de puertos seriales es el modelo AccelePort  Xem de la marca Dig
 
 La configuración que indica el fabricante Digi para realizar un cable para impresora RJ-45 a DB-9 es el siguiente:
 
+
 \begin{center}
+ \resizebox{15cm}{!}{
   \begin{tabular}{|c|c|c|c|c|}
    \hline
-   Pin desde RJ-45 & Señal & Dirección & Señal & A pin DB-9
+   Pin RJ-45 & Señal & Dirección & Señal & Pin DB-9 \\
    \hline
-   3 & GND (Tierra) & <-> & GND (Tierra) & Carcaza
+   3 & GND (Tierra) & \textless\textendash\textgreater & GND (Tierra) & Carcaza \\
    \hline
-   4 & TxD (Transmit Data) & -> & RxD (Receive Data) & 2
+   4 & TxD (Transmit Data) & \textendash\textgreater & RxD (Receive Data) & 2 \\
    \hline
-   5 & RxD (Receive Data) & <- & TxD (Transmit Data) & 3
+   5 & RxD (Receive Data) & \textless\textendash & TxD (Transmit Data) & 3 \\
    \hline
-   6 & SG (Signal Ground) & <-> & SG (Signal Ground) & 5
+   6 & SG (Signal Ground) & \textless\textendash\textgreater & SG (Signal Ground) & 5 \\
    \hline
-   7 & CTS (Clear to Send) & <- & DTR (Data Terminal Ready) & 4
+   7 & CTS (Clear to Send) & \textless\textendash & DTR (Data Terminal Ready) & 4 \\
    \hline
-   1 & DCD (Data Carrier Detect) & <- & RTS (Request to Send) & 7
+   1 & DCD (Data Carrier Detect) & \textless\textendash & RTS (Request to Send) & 7 \\
    \hline
-   2 & RTS (Request to Send) & -> & CTS (Clear to Send) & 8
+   2 & RTS (Request to Send) & \textendash\textgreater & CTS (Clear to Send) & 8 \\
    \hline
-   8 & DTR (Data Terminal Ready) & -> & DSR (Data Set Ready) & 6
+   8 & DTR (Data Terminal Ready) & \textendash\textgreater & DSR (Data Set Ready) & 6 \\
    \hline
   \end{tabular}
+ }
 \end{center}
 
 Para poder saber qué datos manda la caja se hizó uso de un cable con el que se pueda leer la comunicación de la caja registradora (DB-9) al impresor de auditoría (DB-25). Por lo que se abrió el cable y se insertaron las líneas descritas en la configuración anterior para un RJ-45, de esta manera se cuenta con un cable capaz de leer los datos mandados por la caja registradora. Para la lectura de estos datos se utilizó el software \textit{minicom}. Este es un programa de software libre utilizado para monitorear el puerto serie, análogo al \textit{Hyperterminal} de Windows. Los resultados indicaron que la caja manda el ticket con únicamente la información necesaria como número de productos, el producto, el costo del producto, el subtotal, el total, fecha, hora, número de ticket y el cajero que lo tomó. Además de estos datos, se cuentan con carácteres de control especiales para el impresor.
@@ -256,21 +259,21 @@ El cable original que va de la caja (DB-9) al impresor (DB-25) tiene la siguient
 \begin{center}
   \begin{tabular}{|c|c|c|c|}
    \hline
-   Pin DB-9 & Señal DB-9 & Pin DB-25 & Señal DB-25
+   Pin DB-9 & Señal DB-9 & Pin DB-25 & Señal DB-25 \\
    \hline
-   1 &  DCD & 4 y 5 & RTS y CTS
+   1 &  DCD & 4 y 5 & RTS y CTS \\
    \hline
-   2 & RxD & 2 & TxD
+   2 & RxD & 2 & TxD \\
    \hline
-   3 & TxD & 3 & RxD
+   3 & TxD & 3 & RxD \\
    \hline
-   4 & DTR & 6 y 22 & DSR y Ring indicator
+   4 & DTR & 6 y 22 & DSR y Ring indicator \\
    \hline
-   5 & SG & 7 & SG
+   5 & SG & 7 & SG \\
    \hline
-   6 y 9 & Ring indicator y DSR & 20 & DTR
+   6 y 9 & Ring indicator y DSR & 20 & DTR \\
    \hline
-   7 y 8 & CTS y RTS & 8 & DCT
+   7 y 8 & CTS y RTS & 8 & DCT \\
    \hline
   \end{tabular}
 \end{center}
@@ -280,22 +283,23 @@ De acuerdo a la configuración anterior y la indicada por el fabricante para el 
 \begin{center}
  \begin{tabular}{|c|c|}
   \hline
-  RJ-45 & DB-9
-  1 & 7 y 8
+  RJ-45 & DB-9 \\
   \hline
-  2 & 4
+  1 & 7 y 8 \\
   \hline
-  3 & carcaza
+  2 & 4 \\
   \hline
-  4 & 2
+  3 & carcaza \\
   \hline
-  5 & 3
+  4 & 2 \\
   \hline
-  6 & 5
+  5 & 3 \\
   \hline
-  7 & 4
+  6 & 5 \\
   \hline
-  8 & 6
+  7 & 4 \\
+  \hline
+  8 & 6 \\
   \hline
  \end{tabular}
 \end{center}
@@ -308,7 +312,7 @@ De acuerdo a la versión del sistema operativo en restaurantes, se añadió una 
 
 A continuación:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\small]
     #335                 LLEV  
  4 MIXTA   
  1 PQ8BI SE                125.00  
@@ -333,11 +337,11 @@ NACHO
            CAMB             21.00  
 NACHO  
   8378 11:20 #12 MAR.01'11  REG0003  
-\end{verbatim}
+\end{Verbatim}
 
-Se muestra dos tickets, el número 335 y 336, lo que indica que provienen de la caja 3. El \#335 es un pedido para llevar y el #336 es para comer en el restaurante. Se muestran las cantidades de los productos, su precio, el total, el efectivo con que se pagó y el cambio, el número de ticket único, así como la fecha y hora. El ticket \#335 que se manda a imprimir para darselo al cliente se muestra a continuación:
+Se muestra dos tickets, el número 335 y 336, lo que indica que provienen de la caja 3. El \#335 es un pedido para llevar y el \#336 es para comer en el restaurante. Se muestran las cantidades de los productos, su precio, el total, el efectivo con que se pagó y el cambio, el número de ticket único, así como la fecha y hora. El ticket \#335 que se manda a imprimir para dárselo al cliente se muestra a continuación:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\small]
  PREMIUM RESTAURANT BRANDS SDE RL DE CV  
      PASEO DE TAMARINDOS 400 PISO1       
    BOSQUES DE LAS LOMAS, CUAJIMALPA      
@@ -364,13 +368,13 @@ NACHO
           No. ticket unico: 6     
     (solo se factura el mismo dia)       
          Gracias por su compra           
-\end{verbatim}
+\end{Verbatim}
 
 Para la verificación del correcto funcionamiento del \texttt{portAudit} se creo un script que valida que todas las cajas estén registrando auditoría, y que no falte ningún ticket. Esto se realiza verificando primero, la existencia de la auditoría de las cajas en donde ya haya habido venta, después se busca el número de ticket en los archivos generados por la interfase que convierte la información de la caja registradora al punto de venta, y se revisa que en la auditoría correspondiente a la caja se encuentre. En caso de que no esté en ejecución el \texttt{portAudit}, que no se estén generando los archivos de auditoría o falten tickets de auditoría se genera un correo electrónico de manera automática para avisar de la situación correspondiente. Este script se ejecuta mediante cron cada veinte minutos.
 
 Ejemplo de correo electrónico cuando falta el archivo de auditoría de alguna caja:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\tiny]
 Received: from xxxxxxxx.xxx.com.mx (192.168.101.xxx) by xxxxxxxx.xxx.com
  (xxx.xxx.xxx.xxx) with Microsoft SMTP Server id 14.0.639.21; Mon, 13 Jun 2011
  15:00:31 -0500
@@ -399,14 +403,14 @@ Falta(n) archivo(s) de auditoria de caja(s):
 * Revisar banderas de cajas
 * Revisar conexion de cables
 * Revisar concentrador
-\end{verbatim}
+\end{Verbatim}
 
 Con esta solución se ha tenido un gran ahorro económico derivado de dejar de consumir papel, cintas de tinta, impresores y su mantenimiento. Igualmente se tiene un impacto benéfico a la ecología, ya que se deja de utilizar una cantidad importante de papel, teniendo una auditoría \textit{paperless}.
 
 \subsection{Reporte de Usos Ideales en KFC}
 \label{sec:usos_ideales_kfc}
 
-En KFC (y Pizza Hut) se necesita saber con anticipación el número de transacciones que se tendrán para cada día, de esta manera se puede saber, mediante un pronóstico, el número de hamburguesas que se deben preparar, el número de piezas de pollo que se deben marinar para posteriomente cocinarlas, el número de pures que se deben tener listos, etc. De esta manera la operación del restaurante está preparada para el nivel de transacciones que se tengan durante el día. Sabiendo esto, el gerente sabe el nivel de inventario que debe tener para satisfacer las transacciones, el número de piezas de pollo que debe descongelar, el número de asociados (empleados) que debe tener a cierta hora del día para poder preparar los productos, etc. 
+En KFC (y Pizza Hut) se necesita saber con anticipación el número de transacciones que se tendrán para cada día, de esta manera se puede saber, mediante un pronóstico, el número de hamburguesas que se deben preparar, el número de piezas de pollo que se deben marinar para posteriormente cocinarlas, el número de purés que se deben tener listos, etc. De esta manera la operación del restaurante está preparada para el nivel de transacciones que se tengan durante el día. Sabiendo esto, el gerente sabe el nivel de inventario que debe tener para satisfacer las transacciones, el número de piezas de pollo que debe descongelar, el número de asociados (empleados) que debe tener a cierta hora del día para poder preparar los productos, etc. 
 
 El uso ideal es la cantidad de producto que el restaurante tuvo que haber usado, de acuerdo a su número de transacciones, y a la cantidad de producto establecida por la receta, sin incluir la merma. La merma son los productos, ingredientes o artículos que deben ser descartados debido a: deterioro, han expirado o se produjeron en exceso. La diferencia entre el uso ideal y el uso actual se le conoce como varianza, y puede ser expresada en cantidad de productos o en su valor monetario. Si la varianza es negativa significa que un producto o ingrediente fue utilizado más que la cantidad ideal; si es positiva, un producto o ingrediente fue utilizado menos que lo que dice el ideal.
 
@@ -416,9 +420,9 @@ Esto ocasiona que el gerente ocupe mucho tiempo en la búsqueda de estos usos id
 
 Para facilitar la elaboración de este reporte, se creó una tabla en la base de datos de PostgreSQL que almacene los usos ideales por fecha y por identificador de producto. Estos datos se obtiene de un comando que ya existe en el sistema y mediante un script en Perl se parsean los resultados y se ingresan a la base de datos. Esta carga se realiza de manera diaria, una vez que se han generado los usos ideales del día anterior. 
 
-Está es la descripción de la tabla de PostgreSQL encargada de almacenar los usos ideales:
+Esta es la descripción de la tabla de PostgreSQL encargada de almacenar los usos ideales:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\tiny]
     Table "public.op_inv_ideal_use"
   Column   |     Type      | Modifiers 
 -----------+---------------+-----------
@@ -432,11 +436,11 @@ Indexes:
     "op_invc_ideal_use_pkey" PRIMARY KEY, btree (turn_date, turn_id, inv_id)
 Foreign-key constraints:
     "fk1" FOREIGN KEY (inv_id) REFERENCES op_grl_cat_inventory(inv_id) ON UPDATE RESTRICT ON DELETE RESTRICT
-\end{verbatim}
+\end{Verbatim}
 
-La llave foránea \texttt{inv_id} pertenece a la tabla \texttt{op_grl_cat_inventory}, la cual contiene, entre otros datos, el nombre del producto y la unidad de medida.
+La llave foránea \texttt{inv\_id} pertenece a la tabla \texttt{op\_grl\_cat\_inventory}, la cual contiene, entre otros datos, el nombre del producto y la unidad de medida.
 
-El los restaurantes existe una aplicación llamada \textit{e-Reports}, la cual está desarrollada en JSP\footnote{Java Server Pages}. En está aplicación se añaden los reportes requeridos clasificandolos de acuerdo a su finalidad. El reporte de ``Usos Ideales'' se  encuentra en el menú de \textit{Mano de Obra -> Planeación -> Usos Ideales Diarios}.
+El los restaurantes existe una aplicación llamada \textit{e-Reports}, la cual está desarrollada en JSP\footnote{Java Server Pages}. En está aplicación se añaden los reportes requeridos clasificándolos de acuerdo a su finalidad. El reporte de ``Usos Ideales'' se  encuentra en el menú de \textit{Mano de Obra \textendash\textgreater Planeación \textendash\textgreater Usos Ideales Diarios}.
 
 Se crearon archivos de configuración de productos clasificados de acuerdo a la línea de producción donde son utilizados. Los archivos son:
 
@@ -448,14 +452,14 @@ Se crearon archivos de configuración de productos clasificados de acuerdo a la 
  \item Sandwich.conf
  \item Trasempaque.conf
  \item Congelados.conf  
- \item Home_Delivery.conf
- \item Pure_Ensalada.conf  
+ \item Home\_Delivery.conf
+ \item Pure\_Ensalada.conf  
  \item Servicio.conf
 \end{itemize}
 
 En ellos se encuentra el número de inventario del producto a deplegar en el reporte. A continuación se muestra una parte del archivo de \texttt{Servicio.conf}:
 
-\begin{verbatim}
+\begin{Verbatim}[fontsize=\small]
 #####################
 ###   Servicio    ###
 #####################
@@ -477,8 +481,18 @@ En ellos se encuentra el número de inventario del producto a deplegar en el rep
 10613
 # Catsup sobre
 10559
-\end{verbatim}
+\end{Verbatim}
 
 Teniendo estos archivos de configuración resulta muy fácil añadir o quitar productos de acuerdo a las necesidades de la operación.
 
-El reporte obtiene de la tabla \texttt{op_gt_real_sist_mng} el pronóstico de número de transacciones y las transacciones reales más cercanas a la fecha seleccionada.
+El reporte obtiene de la tabla \texttt{op\_gt\_real\_sist\_mng} el pronóstico de número de transacciones y las transacciones reales más cercanas a la fecha seleccionada.
+
+A continuación se muestra una pantalla de resultados del reporte:
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.5]{ideal_use_2.png}
+ \end{center}
+ \caption{Usos Ideales Diarios en KFC}
+ \label{fig:usos_ideales_kfc}
+\end{figure}
