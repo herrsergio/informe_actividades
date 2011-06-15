@@ -144,6 +144,48 @@ Posee diccionarios ortográficos en varios idiomas. Puede usar extensiones para 
  \item OpenOffice.org Math es una aplicación diseñada para la creación y edición de fórmulas matemáticas. Las fórmulas puedes ser incorporadas a otros documentos de OpenOffice.org, como en un documento de Writer o bien exportar la fórmula a otro formato de archivo como PDF.
 \end{itemize}
 
+\subsection{e-Reports}
+\label{sec:ereports}
+
+\textit{e-Reports} es una herramienta desarrollada para consultar reportes via web, mediante Firefox, utilizando el servidor Tomcat junto con la base de datos de PostgreSQL. Cada restaurante cuenta con este reporteador para realizar distintas actividades, como son, la consulta de su inventario, la captura de gastos semivariables, conocer el número de transacciones mediante gráficas, etc. Es una de las herramientas más usadas en los restaurantes, junto con el punto de venta, debido a la gran cantidad de información que se puede consultar. Al ser una herramienta web, ésta puede ser consultada desde cualquier computadora que pertenezca a la VPN y conozca la clave para ingresar.
+
+Los reportes son programados en JSP, JavaScript y en algunos casos se hace uso de scripts externos desarrollados en Perl y Bash principalmente. Además, se cuenta con una API desarrollada especialmente para e-Reports, en la cual ya existen métodos para la conexión a base de datos, la creación de tablas dinámicas, conversión de resultados de consulta de base de datos a arreglos de JavaScript, etc. El framework de JavaScript utilzado es BlueShoes\footnote{http://www.blueshoes.org/en/javascript/}.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.5]{ereports_1.png}
+ \end{center}
+ \caption{Página principal de e-Reports}
+ \label{fig:ereports}
+\end{figure}
+
+\subsection{Reporteador}
+\label{sec:reporteador}
+
+Existe otra herramienta para consultar reportes via web llamado \textit{Reporteador}, el cual, a diferencia de \textit{e-Reports}, es usado en mayor parte de los reportes que posee, para desplegar información relacionada directamente con reportes generados por el mismo punto de venta. El despliegue de estos reportes es programado en HTML, PHP y algunos CGI's\footnote{Common Gateway Interface} en Python. Se puede decir que \textit{e-Reports} y el \textit{Reporteador} se complementan, pero en un futuro, el plan es migrar todos los reportes de este último, para concentrar todo en \textit{e-Reports}.
+
+El \textit{Reporteador} posee una clasificación de reportes, la cual está conformada por:
+
+\begin{itemize}
+ \item Ingresos y gastos: Ventas Diarias, Ventas por Hora, Operaciones Diarias, Cancelaciones Diarias, Auditoría de Cajero y Ventas pollo por hora (para KFC).
+ \item Inventarios: Inventario de críticos, usos ideales, Ordenes de compra, Recepciones.
+ \item Mano de Obra: Modelo de Labor.
+ \item Estadísticas: Pronóstico y Ensamble, Historial de Pedidos, Mix Diario por Productos, Mix por Cajero, Estadística Diaria.
+ \item Home Service: Auditoría de Repartidor, Reporte de Vendedores, Mapa por calles, Mapa de Calles, etc.
+ \item Planeación: Ya no cuenta con algún reporte.
+ \item Auditoría: Notas de consumo, Retiros Parciales, Depósitos de Dólares.
+ \item Utilerías: Ya no cuenta con algún reporte.
+\end{itemize}
+
+El \textit{Reporteador} y \textit{e-Reports} conviven en la misma dirección y mismo puerto gracias al mod\_jk, descrito en \ref{sec:apache}
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.5]{reporteador_1.png}
+ \end{center}
+ \caption{Reporteador}
+ \label{fig:reporteador}
+\end{figure}
 
 A continuación se muestran un diagrama que representa a muy grandes rasgos el sistema en Pizza Hut:
 
@@ -201,7 +243,7 @@ A continuación se presentan algunas actividades desarrolladas en la empresa.
 \subsection{Auditoría Electrónica}
 \label{sec:auditoria}
 
-La operación del negocio debe ser vigilada por algún medio, en el cual se plasme un historial de ventas de cada caja registradora en KFC. Es por esto que se cuenta con un impresor de tickets llamado de auditoría, el cual imprime el detalle de venta de cada venta y de cada caja.
+La operación del negocio debe ser vigilada por algún medio, en el cual se plasme un historial de ventas de cada caja registradora en KFC. Es por esto que se cuenta con un impresor de tickets llamado de auditoría, el cual imprime el resumen de venta de cada ticket de cada caja.
 
 Una de las necesidades de negocio más importantes es la de reducción en el costo de venta. Por lo que se tomó la decisión de eliminar este impresor y almacenar la auditoría de manera electrónica. Con esto se ahorra los impresores de tickets, los gastos en mantenimiento de éstos y los rollos de papel en los más de 230 restaurantes KFC.
 
@@ -310,7 +352,7 @@ El programa detecta la caja que originó el ticket, y de acuerdo a esta informac
 
 De acuerdo a la versión del sistema operativo en restaurantes, se añadió una entrada en el archivo \texttt{/etc/inittab} para poder controlar de manera automática el inicio del servicio de almacenamiento de auditoría de manera automática de acuerdo al nivel de ejecución del sistema. 
 
-A continuación:
+A continuación se muestran dos tickets de ejemplo de auditoría:
 
 \begin{Verbatim}[fontsize=\small]
     #335                 LLEV  
@@ -339,7 +381,7 @@ NACHO
   8378 11:20 #12 MAR.01'11  REG0003  
 \end{Verbatim}
 
-Se muestra dos tickets, el número 335 y 336, lo que indica que provienen de la caja 3. El \#335 es un pedido para llevar y el \#336 es para comer en el restaurante. Se muestran las cantidades de los productos, su precio, el total, el efectivo con que se pagó y el cambio, el número de ticket único, así como la fecha y hora. El ticket \#335 que se manda a imprimir para dárselo al cliente se muestra a continuación:
+Los tickets número 335 y 336 indican que provienen de la caja 3. El \#335 es un pedido para llevar y el \#336 es para comer en el restaurante. Se muestran las cantidades de los productos, su precio, el total, el efectivo con que se pagó y el cambio, el número de ticket único, así como la fecha y hora. El ticket \#335 que se manda a imprimir para dárselo al cliente se muestra a continuación:
 
 \begin{Verbatim}[fontsize=\small]
  PREMIUM RESTAURANT BRANDS SDE RL DE CV  
@@ -404,6 +446,16 @@ Falta(n) archivo(s) de auditoria de caja(s):
 * Revisar conexion de cables
 * Revisar concentrador
 \end{Verbatim}
+
+El gerente del restaurante puede revisar los tickets de auditoría y del punto de venta mediante un reporte tipo web, en donde le indica la fecha que requiere consultar y como opción tiene la de ingresar el número de ticket a buscar, en caso de que no ingrese este datos, se despliegan todos los tickets del día. Esto se logra gracias a que los tickets de auditoría son almacenados en un directorio específico. El reporte consulta el archivo de acuerdo a la fecha seleccionada. 
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.5]{ticket_audit_ereports.png}
+ \end{center}
+ \caption{Resultado de una consulta al reporte web de Ticket de Auditoría}
+ \label{fig:rep_audit_ereports}
+\end{figure}
 
 Con esta solución se ha tenido un gran ahorro económico derivado de dejar de consumir papel, cintas de tinta, impresores y su mantenimiento. Igualmente se tiene un impacto benéfico a la ecología, ya que se deja de utilizar una cantidad importante de papel, teniendo una auditoría \textit{paperless}.
 
