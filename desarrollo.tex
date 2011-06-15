@@ -548,3 +548,76 @@ A continuación se muestra una pantalla de resultados del reporte:
  \caption{Usos Ideales Diarios en KFC}
  \label{fig:usos_ideales_kfc}
 \end{figure}
+
+\subsection{Cierre de Lote de Tarjeta de Crédito}
+\label{sec:cierre_lote}
+
+El uso de tarjetas de crédito y débito es indispensable para cualquier negocio ya que al no aceptarlas se pueden perder valiosas transacciones. Las tarjetas, hoy en día, no sólo son un método o forma de pago, sino que da seguridad a quienes la aportan, tanto seguridad al no portar efectivo como seguridad de poder pagar a largo plazo en caso de que no cuenten con el dinero, además de poder tener diferentes beneficios con sus puntos que otorga el banco al realizar compras, como viajes, artículos entre otros.
+
+Actualmente la compañía ya cuenta con el servicio de cobro de tarjetas en la marca PH y se encuentra en un mercado prueba para la marca KFC, ambos obtuvieron excelentes resultados, tanto en transacciones como en un aumento en el ticket promedio por lo que se ha tomado la
+decisión de realizar el lanzamiento nacional por fases hasta cubrir el 100\% de los restaurantes.
+
+Existe una actividad muy importante que se debe realizar siempre al final del día, una vez que han concluido las ventas, el cierre de lote en las terminales bancarias. Con el cierre de lote se asegura que el banco depositará el dinero correspondiente a las ventas pagadas mediante tarjeta de crédito/débito, al siguiente día hábil. La importancia de esta actividad radica en las conciliaciones bancarias que se deben realizar de manera diaria, un retraso en el pago de este dinero ocasiona que no se puedan realizar a tiempo estas conciliaciones.
+
+Por esta razón, la necesidad del negocio requiere de una aplicación en la cual los asociados ingresen el monto total cobrado de cada terminal bancaria, forzándolos ha haber realizado el cierre de lote en cada dispositivo. La aplicación fue desarrollada para \textit{e-Reports}.
+
+Los únicos asosciados autorizados para realizar el cierre de lote, son aquellos que poseen un nivel de seguridad 1 en el sistema de punto de venta. Se creó una tabla en la base de datos de PostgreSQL (\texttt{ss\_cat\_terminals\_ccard}) que contiene información relacionada al número de terminales bancarias con el que cuenta el restaurante. De esta manera, únicamente se despliegan el número de terminales bancarias con las que cuente el restaurante.
+
+Los datos que deben ser ingresados por cada terminal bancaria son:
+
+\begin{itemize}
+ \item Monto que indica el cierre de lote de la terminal. En caso de no haber cobrado con una terminal se debe ingresar \texttt{0.0}.
+ \item Fecha en que se realiza el cierre de lote.
+ \item Hora en que se realiza el cierre de lote.
+ \item Número de transacciones que reporta la terminal.
+ \item El campo de ``Cierre Fallido`` se utiliza en caso de que haya existido un error en la terminal bancaria, por ejemplo, por problemas de comunicación.
+\end{itemize}
+
+Una vez ingresados estos datos, se debe presionar el botón de \texttt{Obtener montos totales}, con esta acción, se obtiene la cantidad total de dinero registrado en las terminales bancarias y el total de ventas cobradas con tarjeta de crédito/débito que se tienen registrados en el sistema punto de venta. Estos totales, deben coincidir, en caso de no hacerlo, se muestra un mensaje indicando la diferencia y sugiriendo revisar los datos, y si es el caso, corregirlos. Después se debe presionar el botón de \texttt{Guardar y confirmar datos}, en esta parte es cuando se le solicita al asociado, elegir su nombre de usuario y teclear su contraseña. Una vez realizado esto de manera correcta se almacenarán los datos ingresados y en caso de haber exisitido diferencia entre los montos totales del sistema punto de venta y el de las terminales bancarias se manda un correo electrónico automático al restaurante, al gerente de zona y a las personas del área de Ingresos correspondientes.
+
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.7]{cierre_lote_1.png}
+ \end{center}
+ \caption{Cierre de Lote de Tarjeta de Crédito en e-Reports}
+ \label{fig:cierre_lote_1}
+\end{figure}
+
+Existe además, una alarma que funciona a manera de recordatorio, en caso de que no se haya realizado el cierre de lote a las 23:45 horas. La alarma, realizada en Perl y Xdialog, consiste en una ventana que aparece en la computadora del restaurante recordando ingresar los datos del cierre de lote, así como también la generación de \textit{beeps} en la misma computadora, y en caso de ser restaurante PH, en todas las terminales. Al desactivar la alarma, ésta solicitará por el usuario y contraseña de quien lo está realizando, esto con el fin de almacenar esta información en un archivo. En caso de que nadie la desactive, ésta automáticamente se apaga después de 15 minutos.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.7]{cierre_lote_4.png}
+ \end{center}
+ \caption{Ventanas de Xdialog de la alarma}
+ \label{fig:cierre_lote_4}
+\end{figure}
+
+Cada cierre de lote realizado en \textit{e-Reports} es almacenado en un archivo, con lo cual se puede tener un registro de este reporte. A continuación se muestra un ejemplo de archivo almacenado:
+
+\begin{Verbatim}[fontsize=\small]
+222|1|11-05-14|11-05-14|20:52|4874.20|5190.2|5190.2|0.0|28|SENI|14-5-2011 21:16:13
+222|2|11-05-14|11-05-14|21:10|316|5190.2|5190.2|0.0|1|SENI|14-5-2011 21:16:13
+222|3|11-05-14|11-05-14|00:00|0|5190.2|5190.2|0.0|0|SENI|14-5-2011 21:16:13
+222|4|11-05-14|11-05-14|00:00|0|5190.2|5190.2|0.0|0|SENI|14-5-2011 21:16:13
+\end{Verbatim}
+
+Los campos indican:
+
+\begin{description}
+ \item[Primer campo] es el número del restaurante.
+ \item[Segundo campo] es el número de terminal bancaria.
+ \item[Tercer campo] es la fecha en la que se capturó el cierre de lote.
+ \item[Cuarto campo] es la fecha negocio, la cual es la fecha que tiene el sistema punto de venta. En algunos casos puede que no coincida la fecha actual con la fecha de negocio.
+ \item[Quinto campo] es la hora que marca la terminal bancaria al momento de realizar el cierre de lote.
+ \item[Sexto campo] es el monto cobrado en la terminal bancaria.
+ \item[Séptimo campo] es el monto total cobrado de las terminales bancarias.
+ \item[Octavo campo] es el monto total que reporta el sistema punto de venta que fue pagado con tarjeta de crédito/débito.
+ \item[Noveno campo] es la diferencia entre el monto total que reporta el sistema punto de venta y monto total cobrado de las terminales bancarias.
+ \item[Décimo campo] es el número de transacciones cobradas en la respectiva terminal bancaria.
+ \item[Onceavo campo] es el nombre de usuario que realizó el cierre de lote.
+ \item[Doceavo campo] es el timestamp del sistema al momento de realizar el cierre de lote.
+\end{description}
+
+
