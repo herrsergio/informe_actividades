@@ -661,10 +661,42 @@ La oportunidad de negocio consiste en poder tener la certeza de que la persona q
 
 Las huellas digitales se pueden considerar como una tarjeta de identidad visible que la naturaleza nos dio. Éstas poseen un diseño único que representan únicamente a una persona. Las huellas digitales son diminutas arrugas en la piel de nuestros dedos, tanto de las manos como de los pies, las cuales resultaron de la evolución de nuestros ancestros y cuya finalidad es la de poder sujetar de mejor manera objetos. Además sirven para poder transmitir mejor las vibraciones lo que ocasiona que se puedan distinguir las características de las superficies.
 
-Las huellas digitales se forman de acuerdo a una combinación de la carga genética del individuo y los factores ambientales en los cuales se desarrolla, por lo que es casi imposible que el patrón de una huella digital se repita. Como consecuencia, las huellas digitales son únicas en cada individuo, incluso en gemelos. Dos huellas digitales pueden parecer iguales a simple vista, pero si se observan con más cuidado, ya sea por un investigador entrenado o un software especializado, éstos pueden encontrar las diferencias. Se les llama \textit{minutias} a las características principales de una huella digital, con las que se pueden realizar comparaciones con otras huellas. Ejemplos de minutias son, que si una arruga tiene forma de Y, de U, el abrupto final de una arruga, etc. Las minutias son los patrones que se buscan y analizan en los softwares especializados en reconocimiento de huellas digitales.
+Las huellas digitales se forman de acuerdo a una combinación de la carga genética del individuo y los factores ambientales en los cuales se desarrolla, por lo que es casi imposible que el patrón de una huella digital se repita. Como consecuencia, las huellas digitales son únicas en cada individuo, incluso en gemelos. Dos huellas digitales pueden parecer iguales a simple vista, pero si se observan con más cuidado, ya sea por un investigador entrenado o un software especializado, éstos pueden encontrar las diferencias. Se les llama \textit{minutias} a las características principales de una huella digital, con las que se pueden realizar comparaciones con otras huellas. Ejemplos de minutias son, que si una arruga tiene forma de Y, de U, el abrupto final de una arruga, etc. Las minutias son los patrones que se buscan y analizan en los programas especializados en reconocimiento de huellas digitales.
+
+\subsubsection{Tipos de sensores}
+\label{sec:fp_sensores}
+
 
 Existen tres tipos de sensores (\textit{scanners}) de huellas digitales: ultrasónicos, ópticos y capacitivos, de los cuales los más comunes son los últimos dos.
 
 Los scanners de huellas digitales involucran la captura de una imagen digital de la huella usando luz visible. Este tipo de sensor es en esencia una cámara digital. La capa superior del sensor, donde el dedo es colocado, se conoce como la superficie de contacto. Debajo de esta capa existe una capa que ilumina la superficie del dedo. La luz reflejada del dedo llega a un dispositivo de carga acoplada (\textit{CCD, charge-coupled device)} que captura la imagen de la huella digital. Una superficie de contacto sucia o rayada ocasiona una mala imagen de la huella digital.
 
-Los scanners capacitivos, al igual que los ópticos, generan una imagen de la huella digital, pero en lugar de capturar la imagen mediante luz, se utiliza corriente eléctrica.
+Los scanners capacitivos, al igual que los ópticos, generan una imagen de la huella digital, pero en lugar de capturar la imagen mediante luz, se utiliza el principio de capacitancia. El sensor que contiene arreglos de pixeles funciona como una placa de un capacitor, la  capa de la piel, conocida como dermis (que conduce electricidad) es la otra placa, y la epidermis funciona como un dieléctrico.
+
+\subsubsection{Ventajas y desventajas}
+\label{sec:fp_pros_cons}
+
+Existen diferentes maneras en las cuales un sistema de seguridad puede verificar que alguien es un usuario autorizado. La mayoría de los sistemas buscan por una o más de las siguientes sentencias:
+
+\begin{itemize}
+ \item Qué se tiene.
+ \item Qué se sabe.
+ \item Quién es.
+\end{itemize}
+
+Para entrar a un sistema tipo ''qué se tiene``, se necesita algún dispositivo como un token de autenticación, o una tarjeta RFID\footnote{Radio Frequency Identification}. Para el sistema ''qué se sabe`` se requiere que se ingrese una contraseña o un PIN. El sistema ''quién es`` busca por evidencia física de que la persona que se dice ser, es realmente ella, en esta clasificación entran las huellas digitales y el reconocimiento de voz.
+
+Estos últimos sistemas tienen varias ventajas sobre los demás, por ejemplo:
+
+\begin{itemize}
+ \item Los atributos físicos son más difíciles de falsificar que las tarjetas de identificación.
+ \item No se puede usar la fuerza bruta para adivinar una huella digital como se hace con las contraseñas.
+ \item No se pueden olvidar las huellas digitales como sucede con una contraseña.
+\end{itemize}
+
+A pesar de ser tan efectivas, no son infalibles, y también tienen desventajas. Los scanners ópticos no siempre pueden distinguir bien entre la imagen de una huella digital, y una huella digital real. Y los scanners capacitivos pueden ser engañados con el molde de una huella digital. En uno de los peores casos, un criminal pudo haber cortado el dedo de una persona para poder acceder al sistema. Es por esto que algunos dispositivos ya cuentan con sensores de calor y pulso para poder distinguir estos casos.
+
+Para hacer estos sistemas más robustos, conviene utilizar el análisis biométrico con un sistema convencional de identificación, como una contraseña. La necesidad del negocio no la requiere directamente, solamente como medio de respaldo en caso de que el dispositivo lector falle.
+
+\subsubsection{Prototipo 1: Lector Microsoft}
+\label{sec:lector_microsoft}
