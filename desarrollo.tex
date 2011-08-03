@@ -663,6 +663,15 @@ Las huellas digitales se pueden considerar como una tarjeta de identidad visible
 
 Las huellas digitales se forman de acuerdo a una combinación de la carga genética del individuo y los factores ambientales en los cuales se desarrolla, por lo que es casi imposible que el patrón de una huella digital se repita. Como consecuencia, las huellas digitales son únicas en cada individuo, incluso en gemelos. Dos huellas digitales pueden parecer iguales a simple vista, pero si se observan con más cuidado, ya sea por un investigador entrenado o un software especializado, éstos pueden encontrar las diferencias. Se les llama \textit{minutias} a las características principales de una huella digital, con las que se pueden realizar comparaciones con otras huellas. Ejemplos de minutias son, que si una arruga tiene forma de Y, de U, el abrupto final de una arruga, etc. Las minutias son los patrones que se buscan y analizan en los programas especializados en reconocimiento de huellas digitales.
 
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.5]{fingerprint.png}
+ \end{center}
+ \caption{Huella Digital}
+ \label{fig:finger_print_1}
+\end{figure}
+
+
 \subsubsection{Tipos de sensores}
 \label{sec:fp_sensores}
 
@@ -700,3 +709,38 @@ Para hacer estos sistemas más robustos, conviene utilizar el análisis biométr
 
 \subsubsection{Prototipo 1: Lector Microsoft}
 \label{sec:lector_microsoft}
+
+Al comenzar a realizar el proyecto se contaba con un lector de huellas digitales modelo ''Microsoft Fingerprint Reader``, el cual es un lector con conexión USB. La desventaja en un principio radicaba en la incertidumbre de que el dispositivo funcionara en una computadora con GNU/Linux. Al conectarlo y ejecutar el comando \texttt{dmesg} se observa que el kernel identifica correctamente el lector.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.5]{microsoft_scanner.png}
+ \end{center}
+ \caption{Microsoft Fingerprint Reader}
+ \label{fig:finger_print_2}
+\end{figure}
+
+Este lector está basado en un chipset conocido como \textit{DigitalPersona U.are.U 4000/4000B} el cual es usado en una gran cantidad de lectores, incluidos los de la compañía fabricante \textit{DigitalPersona}. El lector es del tipo óptico, el cual únicamente captura imágenes y los envía a la computadora y es necesario el uso de software para procesar y comparar las huellas digitales. Además el sensor es capaz de detectar cuando un dedo ha sido colocado o removido y se le puede indicar cuando capturar la huella digital.
+
+Haciendo una investigación se encuentra que existe software libre que permite la lectura y procesamiento de las huellas digitales en GNU/Linux. Este software se llama \texttt{libfprint\footnote{http://www.freedesktop.org/wiki/Software/fprint/libfprint}}.  \texttt{libfprint} es una biblioteca que permite a los desarrolladores añadir soporte de lectores de huellas digitales a sus desarrollo. Algunas de sus características son:
+
+\begin{itemize}
+ \item Está escrito en lenguaje C.
+ \item Depende de la biblioteca \texttt{libusb} y \textit{glib} para la comunicación.
+ \item Ofrece una única interfaz de programación para la gran variedad de dispositivos que soporta.
+ \item Soporta la captura y descarga en de imágenes en tiempo real desde el lector.
+ \item Incluye funciones de procesamiento de imágenes.
+ \item Permite el registro de huellas digitales de una persona (enrolamiento) y su verificación.
+\end{itemize}
+
+Los controladores propietarios de \textit{DigitalPersona} y su kit de desarrollo de software (SDK\footnote{Software Development Kit}) envían las imágenes cifradas a través de USB. Debido a que el método de cifrado es desconocido,  \texttt{libfprint} envía las imágenes sin esta protección.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.5]{fingerprint_raw_scan.png}
+ \end{center}
+ \caption{Ejemplo de imagen capturada por el dispositivo}
+ \label{fig:finger_print_3}
+\end{figure}
+
+El lector manda una imagen de 348x289 píxeles separadas en dos transacciones, la primera es un encabezado de 64 bytes que es ignorada y después la imagen.
