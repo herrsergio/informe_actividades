@@ -1,0 +1,92 @@
+\appendix
+
+\chapter{Cambios a \texttt{libfprint}}
+
+
+\begin{Verbatim}
+--- data.c.orig	2011-05-10 16:36:10.000000000 +0000
++++ data.c	2011-05-10 16:36:10.000000000 +0000
+@@ -49,8 +49,9 @@
+ 
+ static char *base_store = NULL;
+ 
+-static void storage_setup(void)
++static void storage_setup(char *path, char *user)
+ {
++    /*
+ 	const char *homedir;
+ 
+ 	homedir = g_getenv("HOME");
+@@ -58,8 +59,9 @@
+ 		homedir = g_get_home_dir();
+ 	if (!homedir)
+ 		return;
++    */
+ 
+-	base_store = g_build_filename(homedir, ".fprint/prints", NULL);
++	base_store = g_build_filename(path, user, "fprint/prints", NULL);
+ 	g_mkdir_with_parents(base_store, DIR_PERMS);
+ 	/* FIXME handle failure */
+ }
+@@ -225,7 +227,7 @@
+  * \returns 0 on success, non-zero on error.
+  */
+ API_EXPORTED int fp_print_data_save(struct fp_print_data *data,
+-	enum fp_finger finger)
++	enum fp_finger finger, char *pathd, char *user)
+ {
+ 	GError *err = NULL;
+ 	char *path;
+@@ -235,7 +237,9 @@
+ 	int r;
+ 
+ 	if (!base_store)
+-		storage_setup();
++		storage_setup(pathd, user);
++
++    //printf("fp_print_data_save: %s\n", base_store);
+ 
+ 	fp_dbg("save %s print from driver %04x", finger_num_to_str(finger),
+ 		data->driver_id);
+@@ -334,14 +338,17 @@
+  * \returns 0 on success, non-zero on error
+  */
+ API_EXPORTED int fp_print_data_load(struct fp_dev *dev,
+-	enum fp_finger finger, struct fp_print_data **data)
++	enum fp_finger finger, struct fp_print_data **data,
++    char *pathd, char *user)
+ {
+ 	gchar *path;
+ 	struct fp_print_data *fdata;
+ 	int r;
+ 
+-	if (!base_store)
+-		storage_setup();
++	//if (!base_store)
++		storage_setup(pathd, user);
++
++    //printf("fp_print_data_load: %s\n", base_store);
+ 
+ 	path = get_path_to_print(dev, finger);
+ 	r = load_from_file(path, &fdata);
+@@ -551,7 +558,7 @@
+  * \returns a NULL-terminated list of discovered prints, must be freed with
+  * fp_dscv_prints_free() after use.
+  */
+-API_EXPORTED struct fp_dscv_print **fp_discover_prints(void)
++API_EXPORTED struct fp_dscv_print **fp_discover_prints(char *pathd, char *user)
+ {
+ 	GDir *dir;
+ 	const gchar *ent;
+@@ -563,7 +570,9 @@
+ 	unsigned int i;
+ 
+ 	if (!base_store)
+-		storage_setup();
++		storage_setup(pathd, user);
++
++    //printf("fp_discover_prints: %s\n", base_store);
+ 
+ 	dir = g_dir_open(base_store, 0, &err);
+ 	if (!dir) {
+\end{Verbatim}
