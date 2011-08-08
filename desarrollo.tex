@@ -744,3 +744,68 @@ Los controladores propietarios de \textit{DigitalPersona} y su kit de desarrollo
 \end{figure}
 
 El lector manda una imagen de 348x289 píxeles separadas en dos transacciones, la primera es un encabezado de 64 bytes que es ignorada y después la imagen.
+
+Uno de los grandes problemas con el sistema actual, es que a pesar de que funciona para lo que necesita hacer: tomar venta, generar reportes, etc., el sistema está sumamente desactualizado, por lo que la instalación de nuevo software puede conllevar a la actualización o instalación de nuevo software. Para la compilación del código fuente de \texttt{libfprint} se tuvo que instalar el siguiente software:
+
+\begin{itemize}
+ \item \textit{GLib} (ver. 2.28.0). Es una biblioteca de propósito general, originalmente parte de GTK+, pero a partir de la versión 2.0 los desarrolladores decidieron separarlas para crear un nuevo producto. GLib proporciona estructuras de datos avanzadas, como listas doblemente ligadas, tablas hash, arreglos dinámicos, árboles binarios, etc. Además provee de funciones para programación de hilos, colas, acceso seguro a memoria, timers, etc.
+ \item \textit{ImageMagick} (ver. 6.6.0-4). Es una aplicación que sirve para crear, editar y componer imágenes. Puede leer, convertir y guardar imágenes en una gran variedad de formatos.
+ \item \textit{libusb} (ver 1.0.8). Es una biblioteca que proporciona las funciones necesarias para el control en la transmisión y recepción de datos de un dispositivo USB.
+ \item \textit{nss}. \textit{Network Security Services} es un conjunto de bibliotecas diseñadas por Mozilla para desarrollo de aplicaciones seguras cliente/servidor. Proporciona bibliotecas seguras como SSL\footnote{Secure Socket Layer} y S/MIME\footnote{Secure/Multipurpose Internet Mail Extensions}. Esta herramienta fue la más díficl de compilar y adaptar para el sistema actual, ya que se tuvieron que adecuar algunos archivos del código fuente para que pudiese compilar. Además de que el código fuente que proporciona Mozilla no sigue un estándar (archivos \texttt{configure}, \texttt{Makefile} y \texttt{autoconf}) y su documentación es deficiente.
+\end{itemize} 
+
+Originalmente \texttt{libfprint} no es multiusuario, el software está diseñado para almacenar la información de las huellas digitales en el \texttt{\$HOME} de cada usuario, por lo que es necesario que los usuarios tengan una cuenta en el sistema. Para corregir este problema se tuvo que modificar el código fuente de \texttt{libfprint} con el objetivo de que se almacene la información de todos los usuarios en un solo directorio y en subdirectorios de acuerdo al número de empleado registrado en el punto de venta.
+
+Se desarrolló una interfaz gráfica usando \textit{Swing} para la entrada/salida y enrolamiento de los empleados. \textit{Swing} es una biblioteca gráfica para Java. Incluye widgets para interfaz gráfica de usuario tales como cajas de texto, botones, desplegables y tablas.
+
+Debido a que \texttt{libfprint} está programado en C y la interfaz gráfica es en Java, se utilizó JNI (\textit{Java Native Interface} para funcionar. \textit{JNI} es un framework de programación que permite que un programa escrito en Java ejecutado en la máquina virtual java (JVM) pueda interactuar con programas escritos en otros lenguajes como C, C++ y ensamblador, la desventaja más importante es la pérdida de portabilidad que ofrece Java.
+
+Se programaron dos funciones en C usando JNI: la de verificación y la de enrolamiento. A continuación se muestra el encabezado del archivo de verificación:
+
+\begin{Verbatim}
+JNIEXPORT jint JNICALL Java_PRBAS_PRBAttendance_verify
+  (JNIEnv *env, jobject obj, jint finger, jstring p, jstring u)
+\end{Verbatim}
+
+El apuntador \texttt{JNIEnv *env}, junto con \texttt{jobject obj} siempre deben ir al programar con JNI, ya que son interfaz con la máquina virtual de Java, después pueden ir los argumentos necesarios para la función, en este caso, \texttt{finger} que es un entero y representa al dedo a ser verificado (0-pulgar izquierdo, 1-índice izquierdo, 2-medio izquierdo, ... 9-meñique derecho), la cadena \texttt{p} indica la ruta donde se encuentra almacenada la información de las huellas digitales, y \texttt{u} es el usuario a verificar.
+
+Una de las partes más importantes es poder ingresar al sistema punto de venta la información de entrada/salida de un empleado. No se tenía documentado exactamente cómo y dónde es que el sistema ingresa está información, por lo que se tuvo que revisar el código fuente para conocerlo. Para ingresar la entrada/salida el empleado debe teclear su clave en el sistema y posteriormente ingresar a las opciones de \textit{b) Entrada de Empleado} o \textit{c) Salida de Empleado}.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.5]{fp_libfprint_fms_1.png}
+ \end{center}
+ \caption{Pantalla de entrada/salida en sistema punto de venta.}
+ \label{fig:finger_print_4}
+\end{figure}
+
+Al realizar la entrada/salida el sistema utiliza los siguientes archivos binarios: \texttt{/usr/fms/data/hrcempl.dat}, \texttt{/usr/fms/data/tkeclk.dat} y \texttt{/usr/fms/data/tkpaytrn.dat}. El primero contiene los datos de todos los empleados, una línea por cada empleado: nombre, apellido, edad, dirección, etc. El siguiente archivo únicamente sirve para saber si un usuario ya registro su entrada, y contiene una copia de la línea correspondiente del archivo antes mencionado por cada usuario registrado. Y el último archivo contiene una línea por cada operación realizada de entrada y salida, identificadas con \texttt{TI} para entrada y \texttt{TO} para la salida.
+
+El sistema punto de venta se utiliza principalmente mediante una interfaz gráfica, pero ésta se encuentra soportada por una gran cantidad de comandos que se pueden ejecutar en el shell; entre todos estos comandos, existe el comando \texttt{/usr/fms/etc/sysdd} que sirve para poder poder convertir un archivo binario a texto plano, y viceversa, siempre y cuando se sepa la estructura del archivo binario. Por ejemplo, a continuación se muestra una parte de la estructura del archivo \texttt{/usr/fms/data/tkpaytrn.dat}:
+
+\begin{Verbatim}
+typedef struct  tkpaytrn_rec
+{
+    long    date;
+    short   tran_group;
+    char    fill1[2];
+    char    emp_ssn[16];
+    char    source;
+    char    trancode[3];
+\end{Verbatim}
+
+El comando \texttt{/usr/fms/etc/sysdd} recibe de argumentos la operación a ejecutar, convertir de binario a texto es \texttt{btoa} y al contrario es \texttt{atob}. Despúes la estructura del archivo y al final el archivo, para este caso sería: 
+
+\texttt{/usr/fms/etc/sysdd btoa lhs2s16cs3 /usr/fms/data/tkpaytrn.dat}
+
+La \texttt{l} es para el tipo de dato \texttt{long}, la \texttt{h} para \texttt{short}, la \texttt{s} para arreglos \texttt{char} seguido por el número de elementos y \texttt{c} para un sólo \texttt{char}.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.5]{fp_libfprint_attendance_1.png}
+ \end{center}
+ \caption{Pantalla de entrada/salida con lector de huellas digitales.}
+ \label{fig:finger_print_5}
+\end{figure}
+
+
