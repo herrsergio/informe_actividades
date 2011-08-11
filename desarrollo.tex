@@ -779,9 +779,18 @@ Una de las partes más importantes es poder ingresar al sistema punto de venta l
  \label{fig:finger_print_4}
 \end{figure}
 
-Al realizar la entrada/salida el sistema utiliza los siguientes archivos binarios: \texttt{/usr/fms/data/hrcempl.dat}, \texttt{/usr/fms/data/tkeclk.dat} y \texttt{/usr/fms/data/tkpaytrn.dat}. El primero contiene los datos de todos los empleados, una línea por cada empleado: nombre, apellido, edad, dirección, etc. El siguiente archivo únicamente sirve para saber si un usuario ya registro su entrada, y contiene una copia de la línea correspondiente del archivo antes mencionado por cada usuario registrado. Y el último archivo contiene una línea por cada operación realizada de entrada y salida, identificadas con \texttt{TI} para entrada y \texttt{TO} para la salida.
+Al realizar la entrada/salida el sistema utiliza los siguientes archivos binarios: 
 
-El sistema punto de venta se utiliza principalmente mediante una interfaz gráfica, pero ésta se encuentra soportada por una gran cantidad de comandos que se pueden ejecutar en el shell; entre todos estos comandos, existe el comando \texttt{/usr/fms/etc/sysdd} que sirve para poder poder convertir un archivo binario a texto plano, y viceversa, siempre y cuando se sepa la estructura del archivo binario. Por ejemplo, a continuación se muestra una parte de la estructura del archivo \texttt{/usr/fms/data/tkpaytrn.dat}:
+\begin{enumerate}
+ \item \texttt{/usr/fms/data/hrcempl.dat}
+ \item \texttt{/usr/fms/data/tkeclk.dat}
+ \item \texttt{/usr/fms/data/tkpaytrn.dat}
+\end{enumerate}
+
+
+El primero contiene los datos de todos los empleados, una línea por cada empleado: nombre, apellido, edad, dirección, etc. El siguiente archivo únicamente sirve para saber si un usuario ya registro su entrada, y contiene una copia de la línea correspondiente del archivo antes mencionado por cada usuario registrado. Y el último archivo contiene una línea por cada operación realizada de entrada y salida, identificadas con \texttt{TI} para entrada y \texttt{TO} para la salida.
+
+El sistema punto de venta se utiliza principalmente mediante una interfaz gráfica, pero ésta se encuentra soportada por una gran cantidad de comandos que se pueden ejecutar en el shell; entre todos estos comandos, existe el comando\\ \texttt{/usr/fms/etc/sysdd} que sirve para poder poder convertir un archivo binario a texto plano, y viceversa, siempre y cuando se sepa la estructura del archivo binario. Por ejemplo, a continuación se muestra una parte de la estructura del archivo \texttt{/usr/fms/data/tkpaytrn.dat}:
 
 \begin{Verbatim}
 typedef struct  tkpaytrn_rec
@@ -794,7 +803,7 @@ typedef struct  tkpaytrn_rec
     char    trancode[3];
 \end{Verbatim}
 
-El comando \texttt{/usr/fms/etc/sysdd} recibe de argumentos la operación a ejecutar, convertir de binario a texto es \texttt{btoa} y al contrario es \texttt{atob}. Despúes la estructura del archivo y al final el archivo, para este caso sería: 
+El comando \texttt{/usr/fms/etc/sysdd} recibe de argumentos la operación a ejecutar, convertir de binario a texto es \texttt{btoa} y al contrario es \texttt{atob}. Después la estructura del archivo y al final el archivo, para este caso sería: 
 
 \texttt{/usr/fms/etc/sysdd btoa lhs2s16cs3 /usr/fms/data/tkpaytrn.dat}
 
@@ -802,10 +811,32 @@ La \texttt{l} es para el tipo de dato \texttt{long}, la \texttt{h} para \texttt{
 
 \begin{figure}[htb]
  \begin{center}
-  \includegraphics[scale=0.5]{fp_libfprint_attendance_1.png}
+  \includegraphics[scale=0.4]{fp_libfprint_attendance_1.png}
  \end{center}
  \caption{Pantalla de entrada/salida con lector de huellas digitales.}
  \label{fig:finger_print_5}
 \end{figure}
 
 
+En la figura \ref{fig:finger_print_5} se observa la interfaz en Swing de la aplicación de Entrada/Salida. Como se puede observar, ésta cuenta con la fecha y hora actual, con la cual se almacenará el registro. Al seleccionar el asociado se muestra una lista de todos los empleados registrados en el sistema punto de venta, los cuales son extraídos a través de comandos de SUS.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.4]{fp_libfprint_attendance_2.png}
+ \end{center}
+ \caption{Listado de asociados.}
+ \label{fig:finger_print_6}
+\end{figure}
+
+La selección de entrada/salida sirve para ingresar \texttt{TI} o \texttt{TO} en el archivo correspondiente. Un área de oportunidad en el desarrollo es la detección automática si es entrada o salida. Lo que sí debe ser seleccionado, debido a la naturaleza de la biblioteca \texttt{libfprint}, es la selección del dedo de la huella digital a ingresar. Esto se debe a que el software no es capaz de realizar la comparación entre todas las huellas digitales almacenadas de un mismo usuario, y mucho menos de realizar esta comparación para las huellas de todos los usuarios. Por lo que se le debe decir el usuario y el dedo a ingresar, para que el software únicamente haga la comparación de la huella a verificar y la que fue previamente almacenada. Al dar click en \texttt{OK}, se solicita al usuario que coloque el dedo correspondiente en el lector de huellas digitales, se recomienda colocarlo por alrededor de 3 segundos y retirarlo; el lector, como se mencionó anteriormente, es capaz de detectar la colocación  y remoción de un dedo. En caso de que no se haya verificado la huella digital, la interfaz solicitará que se vuelva a colocar el dedo. Esta interfaz aparece una vez que el usuario ha seleccionado la opción correspondiente (\texttt{b)} o \texttt{c)} de la figura \ref{fig:finger_print_4}).
+
+Para el almacenamiento de las huellas digitales o el enrolamiento, se utiliza una interfaz más simple, en la cual únicamente se selecciona el usuario y el dedo. El procedimiento al hacer click en \texttt{OK} es el mismo que en la verificación. Por razones de seguridad y de evitar el múltiple enrolamiento de una misma huella digital para diferentes usuarios, esta funcionalidad se activa a petición del gerente del restaurante.
+
+Es importante mencionar, que la biblioteca \texttt{libfprint} es capaz de obtener una fotografía de la huella digital, ésta no es utilizada para el análisis de las minutias, \texttt{libfprint} genera un archivo de datos binarios, el cual no puede ser leído por un editor de textos. La imagen de la huella digital es eliminada, ya que de acuerdo a la nueva \textit{Ley de Protección de Datos Personales en Posesión de los Particulares} se debe tener un mayor cuidado en el manejo en este tipo de datos para no caer en problemas legales.
+
+Es por esto que se buscó un dispositivo más especializado, el cual se describe a continuación.
+
+En las pruebas realizadas en este dispositivo se observó que la verificación exitosa depende de la forma en que se haya capturado la huella digital en el enrolamiento. Debido a que el software únicamente usa una sola huella digital para obtener las minutias, al colocar de otra forma el dedo, ocasiona que muchas minutias no correspondan y arroje como resultado que la huella digital no corresponde. Esto ocasionaría un enorme problema en los restaurantes, elevando el número de soportes técnicos diariamente debido a que los empleados no pueden registrar su entrada ni entrar al sistema.
+
+\subsubsection{Prototipo 2: Lector ZKSoftware}
+\label{sec:lector_zksoftware}
