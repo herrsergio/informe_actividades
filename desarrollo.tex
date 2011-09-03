@@ -838,5 +838,19 @@ Es por esto que se buscó un dispositivo más especializado, el cual se describe
 
 En las pruebas realizadas en este dispositivo se observó que la verificación exitosa depende de la forma en que se haya capturado la huella digital en el enrolamiento. Debido a que el software únicamente usa una sola huella digital para obtener las minutias, al colocar de otra forma el dedo, ocasiona que muchas minutias no correspondan y arroje como resultado que la huella digital no corresponde. Esto ocasionaría un enorme problema en los restaurantes, elevando el número de soportes técnicos diariamente debido a que los empleados no pueden registrar su entrada ni entrar al sistema.
 
-\subsubsection{Prototipo 2: Lector ZKSoftware}
+\subsubsection{Prototipo 2: Lector ZK Software}
 \label{sec:lector_zksoftware}
+
+Existen en el mercado una gran variedad de dispositivos lectores de huella digitales, que además de almacenarlas y verificarlas, son capaces de generar diversos reportes de acuerdo a la información de sus registros utilizando software externo o dentro del dispositivo. Una de las principales características que deben tener los lectores para poder integrarlos fácilmente al sistema en el restaurante, es que se puedan descargar los registros a la computadora sin tener un software intermediario, el cual siempre es para Windows. 
+
+Se encontró el lector de huellas digitales de la compañía ZK Software modelo U300 el cual cuenta con un puerto Ethernet RJ45, RS232 y USB. Es capaz de almacenar 1600 huellas digitales, 50000 registros, tiene sistema operativo GNU/Linux.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.4]{fingerprint_u300.png}
+ \end{center}
+ \caption{Lector de huellas digitales U300 de ZKSoftware}
+ \label{fig:finger_print_7}
+\end{figure}
+
+Una de las principales características de este lector, es que una vez configurada su dirección IP, se puede acceder a una página web para consultar los registros almacenados. Se pueden obtener registros del día actual, de ayer, se la semana pasada, o bien especificar la fecha para desplegarlos. Se utilizó cURL para obtener la página web y parsearla con
