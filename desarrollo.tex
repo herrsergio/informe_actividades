@@ -834,7 +834,7 @@ Para el almacenamiento de las huellas digitales o el enrolamiento, se utiliza un
 
 Es importante mencionar, que la biblioteca \texttt{libfprint} es capaz de obtener una fotografía de la huella digital, ésta no es utilizada para el análisis de las minutias, \texttt{libfprint} genera un archivo de datos binarios, el cual no puede ser leído por un editor de textos. La imagen de la huella digital es eliminada, ya que de acuerdo a la nueva \textit{Ley de Protección de Datos Personales en Posesión de los Particulares} se debe tener un mayor cuidado en el manejo en este tipo de datos para no caer en problemas legales.
 
-Es por esto que se buscó un dispositivo más especializado, el cual se describe a continuación.
+Es por esto que se buscó un dispositivo más especializado, el cual se describe con más detalle en la sección \ref{sec:lector_zksoftware}.
 
 En las pruebas realizadas en este dispositivo se observó que la verificación exitosa depende de la forma en que se haya capturado la huella digital en el enrolamiento. Debido a que el software únicamente usa una sola huella digital para obtener las minutias, al colocar de otra forma el dedo, ocasiona que muchas minutias no correspondan y arroje como resultado que la huella digital no corresponde. Esto ocasionaría un enorme problema en los restaurantes, elevando el número de soportes técnicos diariamente debido a que los empleados no pueden registrar su entrada ni entrar al sistema.
 
@@ -843,7 +843,7 @@ En las pruebas realizadas en este dispositivo se observó que la verificación e
 
 Existen en el mercado una gran variedad de dispositivos lectores de huella digitales, que además de almacenarlas y verificarlas, son capaces de generar diversos reportes de acuerdo a la información de sus registros utilizando software externo o dentro del dispositivo. Una de las principales características que deben tener los lectores para poder integrarlos fácilmente al sistema en el restaurante, es que se puedan descargar los registros a la computadora sin tener un software intermediario, el cual siempre es para Windows. 
 
-Se encontró el lector de huellas digitales de la compañía ZK Software modelo U300 el cual cuenta con un puerto Ethernet RJ45, RS232 y USB. Es capaz de almacenar 1600 huellas digitales, 50000 registros, tiene sistema operativo GNU/Linux.
+Se encontró el lector de huellas digitales de la compañía ZK Software modelo U300 el cual cuenta con un puerto Ethernet RJ45 y USB. Es capaz de almacenar 1600 huellas digitales, 50000 registros, tiene sistema operativo GNU/Linux.
 
 \begin{figure}[htb]
  \begin{center}
@@ -853,4 +853,39 @@ Se encontró el lector de huellas digitales de la compañía ZK Software modelo 
  \label{fig:finger_print_7}
 \end{figure}
 
-Una de las principales características de este lector, es que una vez configurada su dirección IP, se puede acceder a una página web para consultar los registros almacenados. Se pueden obtener registros del día actual, de ayer, se la semana pasada, o bien especificar la fecha para desplegarlos. Se utilizó cURL para obtener la página web y parsearla con
+Una de las principales características de este lector, es que una vez configurada su dirección IP, se puede acceder a una página web para consultar los registros almacenados. Se pueden obtener registros del día actual, de ayer, se la semana pasada, o bien especificar la fecha para desplegarlos. 
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.4]{fingerprint_web_2.png}
+ \end{center}
+ \caption{Página web del dispositivo mostrando usuarios registrados.}
+ \label{fig:finger_print_8}
+\end{figure}
+
+En la figura \ref{fig:finger_print_8} se observa la página para seleccionar los usuarios almacenados en el lector y poder consultar sus registros de acuerdo a la fecha indicada. El procedimiento para obtener los datos y el registro de los empleados es el siguiente:
+
+\begin{enumerate}
+ \item Mediante cURL se debe obtener la cookie de la página web del lector de huellas digitales, para poder consultar los registros.
+ \item Con la cookie previamente descargada y con cURL\footnote{cURL es una herramienta para usar en un intérprete de comandos para transferir archivos con sintaxis URL, soporta FTP, FTPS, HTTP, HTTPS, TFTP, SCP, SFTP, Telnet, DICT, FILE y LDAP.} se accede a la dirección \url{http://192.168.101.23/form/AttLog}. En este caso la IP del lector de huellas es \texttt{192.168.101.23}. Con esto se obtiene la imagen de la figura \ref{fig:finger_print_8} que sirve para obtener los números de empleados de los usuarios registrados.
+ \item Con cada uno de los números de empleados obtenidos en el punto anterior, se consulta con cURL el URL \url{http://192.168.101.23/form/AttLog?act=1} con la fecha indicada, con lo que se obtiene la página con los registros almacendados para ese usuario. En caso de que el usuario no tenga registros para ese día, se pasa al siguiente usuario.
+ 
+ \begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.6]{fingerprint_web_3.png}
+ \end{center}
+ \caption{Página web mostrando los registros de un usuario.}
+ \label{fig:finger_print_9}
+\end{figure}
+ 
+ \item Con ayuda de Perl y el módulo \texttt{HTML::TableExtract} se parsea la página HTML obtenida en el punto anterior y se obtiene principalmente, la columna de hora. Se parsean todas los renglones de hora que existan. Por lo menos debe existir un registro de hora, la cual se considera la entrada. El último registro se considera la salida, en caso de que existan más de 2 horas registradas.
+ \item Con el ID del usuario, la fecha y la hora de entrada y/o salida, se realiza una consulta a la base de datos de PostgreSQL para revisar si no ha habido registro de este usuario.
+ \begin{itemize}
+  \item Si tiene un registro de hora, es su entrada, se registra en base de datos y en los archivos necesarios en el punto de venta.
+  \item Si tiene dos registros de hora, es su salida, y se registra en la tabla de la base de datos y se actualizan los archivos correspondientes del punto de venta.
+  \item Si tiene más de dos registros, se toma el último registro de hora, para la salida, en este caso se actualiza el valor en la tabla de salida y en los archivos correspondientes del sistema punto de venta.
+ \end{itemize}
+
+\end{enumerate}
+
+Este proceso se lleva a cabo en un proceso CRON cada minuto.
