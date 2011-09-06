@@ -126,7 +126,7 @@ Mozilla Firefox es un navegador web disponible para varios sistemas operativos c
 \subsection{Mozilla Thunderbird}
 \label{sec:thunderbird}
 
-Mozilla Thunderbird es un cliente de correo electrónico y noticias. Puede manejar múltiples cuentas de correo electrónico y noticias. Características como son la búsqueda rápida, filtrado de mensajes, agrupamiento de mensajes y etiquetas ayudan a manejar y encontrar mensajes de una manera fácil. Thunderbird incorpora un filtro de spam tipo Bayesiano para la clasificación de correo no deseado. Al igual que Firefox, a Thunderbird le pueden ser instalados complementos o extensiones que amplian la funcionalidad de éste. Soporta POP e IMAP, así como LDAP para el manejo de la libreta de direcciones. Está disponible para varios sistemas operativos como Microsoft Windows, GNU/Linux, Mac OS X, Opensolaris, etc.
+Mozilla Thunderbird es un cliente de correo electrónico y noticias. Puede manejar múltiples cuentas de correo electrónico y noticias. Características como son la búsqueda rápida, filtrado de mensajes, agrupamiento de mensajes y etiquetas ayudan a manejar y encontrar mensajes de una manera fácil. Thunderbird incorpora un filtro de spam tipo Bayesiano para la clasificación de correo no deseado. Al igual que Firefox, a Thunderbird le pueden ser instalados complementos o extensiones que amplían la funcionalidad de éste. Soporta POP e IMAP, así como LDAP para el manejo de la libreta de direcciones. Está disponible para varios sistemas operativos como Microsoft Windows, GNU/Linux, Mac OS X, Opensolaris, etc.
 
 \subsection{OpenOffice.org}
 \label{sec:openoffice}
@@ -141,7 +141,7 @@ Posee diccionarios ortográficos en varios idiomas. Puede usar extensiones para 
  \item OpenOffice.org Impress es el programa usado para realizar presentaciones similares a Microsoft PowerPoint. Puede exportar presentaciones al formato SWF, permitiendo visualizar la presentación en cualquier computadora que cuente con un reproductor Flash.
  \item OpenOffice.org Base es un programa similar a Microsoft Access, el cual permite la creación y manejo de base de datos, elaboración de formularios y reportes.
  \item OpenOffice.org Draw es un editor de gráficos vectoriales y herramienta para elaborar diagramas, similar a Microsoft Visio.
- \item OpenOffice.org Math es una aplicación diseñada para la creación y edición de fórmulas matemáticas. Las fórmulas puedes ser incorporadas a otros documentos de OpenOffice.org, como en un documento de Writer o bien exportar la fórmula a otro formato de archivo como PDF.
+ \item OpenOffice.org Math es una aplicación diseñada para la creación y edición de fórmulas matemáticas. Las fórmulas pueden ser incorporadas a otros documentos de OpenOffice.org, como en un documento de Writer o bien exportar la fórmula a otro formato de archivo como PDF.
 \end{itemize}
 
 \subsection{Sistema Punto de Venta SUS}
@@ -280,7 +280,7 @@ Una de las necesidades de negocio más importantes es la de reducción en el cos
 
 Ambos modelos de cajas cuentan con puertos seriales para conectar impresores, además de poseer con un puerto Ethernet RJ-45. Cada caja registradora cuenta con una dirección IP privada para la comunicación con la caja \textit{master}, la cual se encarga, a través de este medio, de transmitirles programación y de recibir los tickets de las demás cajas, para formar la auditoría. 
 
-Por lo que se puede observar de esta descripción, es que hay dos maneras posibles de capturar la auditoría de la caja master: por el puerto serial que manda los datos al impresor, o mediante la captura de los paquetes de red que le llegan a la caja master provenientes de las demás cajas. Se optó por usar la salida del puerto seria hacia al impresor, ya que al mandar a imprimir se manda el ticket integro junto con los caracteres de control para la impresora. De la otra manera, se hubiese tenido que estudiar el protocolo de envio de información de las cajas a la caja master; lo que se sabe de manera certera, es que la comunicación es tipo UDP\footnote{User Datagram Protocol}.
+Por lo que se puede observar de esta descripción, es que hay dos maneras posibles de capturar la auditoría de la caja master: por el puerto serial que manda los datos al impresor, o mediante la captura de los paquetes de red que le llegan a la caja master provenientes de las demás cajas. Se optó por usar la salida del puerto seria hacia al impresor, ya que al mandar a imprimir se manda el ticket integro junto con los caracteres de control para la impresora. De la otra manera, se hubiese tenido que estudiar el protocolo de envío de información de las cajas a la caja master; lo que se sabe de manera certera, es que la comunicación es tipo UDP\footnote{User Datagram Protocol}.
 
 Al estar configurada la caja master para manejar la auditoría, se debe especificar el puerto serie por el que se mandará a imprimir, en caso de no tener conectado un impresor, la caja marcará un error en su pantalla. Eso significa que la caja se encuentra continuamente solicitando un status a la impresora.
 
@@ -323,9 +323,9 @@ La configuración que indica el fabricante Digi para realizar un cable para impr
  }
 \end{center}
 
-Para poder saber qué datos manda la caja se hizó uso de un cable con el que se pueda leer la comunicación de la caja registradora (DB-9) al impresor de auditoría (DB-25). Por lo que se abrió el cable y se insertaron las líneas descritas en la configuración anterior para un RJ-45, de esta manera se cuenta con un cable capaz de leer los datos mandados por la caja registradora. Para la lectura de estos datos se utilizó el software \textit{minicom}. Este es un programa de software libre utilizado para monitorear el puerto serie, análogo al \textit{Hyperterminal} de Windows. Los resultados indicaron que la caja manda el ticket con únicamente la información necesaria como número de productos, el producto, el costo del producto, el subtotal, el total, fecha, hora, número de ticket y el cajero que lo tomó. Además de estos datos, se cuentan con carácteres de control especiales para el impresor.
+Para poder saber qué datos manda la caja se hizo uso de un cable con el que se pueda leer la comunicación de la caja registradora (DB-9) al impresor de auditoría (DB-25). Por lo que se abrió el cable y se insertaron las líneas descritas en la configuración anterior para un RJ-45, de esta manera se cuenta con un cable capaz de leer los datos mandados por la caja registradora. Para la lectura de estos datos se utilizó el software \textit{minicom}. Este es un programa de software libre utilizado para monitorear el puerto serie, análogo al \textit{Hyperterminal} de Windows. Los resultados indicaron que la caja manda el ticket con únicamente la información necesaria como número de productos, el producto, el costo del producto, el subtotal, el total, fecha, hora, número de ticket y el cajero que lo tomó. Además de estos datos, se cuentan con caracteres de control especiales para el impresor.
 
-Otra característica que se observó fue que la caja constantemente se comunica con el impresor para saber si está conectado y este último le manda una respuesta. Por lo que el programa desarrollado en C tendría que: limpiar los carácteres de control, y emular la comunicación que establece la caja registradora par evitar que marque error.
+Otra característica que se observó fue que la caja constantemente se comunica con el impresor para saber si está conectado y este último le manda una respuesta. Por lo que el programa desarrollado en C tendría que: limpiar los caracteres de control, y emular la comunicación que establece la caja registradora par evitar que marque error.
 
 El cable original que va de la caja (DB-9) al impresor (DB-25) tiene la siguiente configuración:
 
@@ -443,7 +443,7 @@ NACHO
          Gracias por su compra           
 \end{Verbatim}
 
-Para la verificación del correcto funcionamiento del \texttt{portAudit} se creo un script que valida que todas las cajas estén registrando auditoría, y que no falte ningún ticket. Esto se realiza verificando primero, la existencia de la auditoría de las cajas en donde ya haya habido venta, después se busca el número de ticket en los archivos generados por la interfase que convierte la información de la caja registradora al punto de venta, y se revisa que en la auditoría correspondiente a la caja se encuentre. En caso de que no esté en ejecución el \texttt{portAudit}, que no se estén generando los archivos de auditoría o falten tickets de auditoría se genera un correo electrónico de manera automática para avisar de la situación correspondiente. Este script se ejecuta mediante cron cada veinte minutos.
+Para la verificación del correcto funcionamiento del \texttt{portAudit} se creo un script que valida que todas las cajas estén registrando auditoría, y que no falte ningún ticket. Esto se realiza verificando primero, la existencia de la auditoría de las cajas en donde ya haya habido venta, después se busca el número de ticket en los archivos generados por la interfase que convierte la información de la caja registradora al punto de venta, y se revisa que en la auditoría correspondiente a la caja se encuentre. En caso de que no esté en ejecución el \texttt{portAudit}, que no se estén generando los archivos de auditoría o falten tickets de auditoría se genera un correo electrónico de manera automática para avisar de la situación correspondiente. Este script se ejecuta mediante CRON cada veinte minutos.
 
 Ejemplo de correo electrónico cuando falta el archivo de auditoría de alguna caja:
 
@@ -751,7 +751,7 @@ Uno de los grandes problemas con el sistema actual, es que a pesar de que funcio
  \item \textit{GLib} (ver. 2.28.0). Es una biblioteca de propósito general, originalmente parte de GTK+, pero a partir de la versión 2.0 los desarrolladores decidieron separarlas para crear un nuevo producto. GLib proporciona estructuras de datos avanzadas, como listas doblemente ligadas, tablas hash, arreglos dinámicos, árboles binarios, etc. Además provee de funciones para programación de hilos, colas, acceso seguro a memoria, timers, etc.
  \item \textit{ImageMagick} (ver. 6.6.0-4). Es una aplicación que sirve para crear, editar y componer imágenes. Puede leer, convertir y guardar imágenes en una gran variedad de formatos.
  \item \textit{libusb} (ver 1.0.8). Es una biblioteca que proporciona las funciones necesarias para el control en la transmisión y recepción de datos de un dispositivo USB.
- \item \textit{nss}. \textit{Network Security Services} es un conjunto de bibliotecas diseñadas por Mozilla para desarrollo de aplicaciones seguras cliente/servidor. Proporciona bibliotecas seguras como SSL\footnote{Secure Socket Layer} y S/MIME\footnote{Secure/Multipurpose Internet Mail Extensions}. Esta herramienta fue la más díficl de compilar y adaptar para el sistema actual, ya que se tuvieron que adecuar algunos archivos del código fuente para que pudiese compilar. Además de que el código fuente que proporciona Mozilla no sigue un estándar (archivos \texttt{configure}, \texttt{Makefile} y \texttt{autoconf}) y su documentación es deficiente.
+ \item \textit{nss}. \textit{Network Security Services} es un conjunto de bibliotecas diseñadas por Mozilla para desarrollo de aplicaciones seguras cliente/servidor. Proporciona bibliotecas seguras como SSL\footnote{Secure Socket Layer} y S/MIME\footnote{Secure/Multipurpose Internet Mail Extensions}. Esta herramienta fue la más difícil de compilar y adaptar para el sistema actual, ya que se tuvieron que adecuar algunos archivos del código fuente para que pudiese compilar. Además de que el código fuente que proporciona Mozilla no sigue un estándar (archivos \texttt{configure}, \texttt{Makefile} y \texttt{autoconf}) y su documentación es deficiente.
 \end{itemize} 
 
 Originalmente \texttt{libfprint} no es multiusuario, el software está diseñado para almacenar la información de las huellas digitales en el \texttt{\$HOME} de cada usuario, por lo que es necesario que los usuarios tengan una cuenta en el sistema. Para corregir este problema se tuvo que modificar el código fuente de \texttt{libfprint} con el objetivo de que se almacene la información de todos los usuarios en un solo directorio y en subdirectorios de acuerdo al número de empleado registrado en el punto de venta.
@@ -853,7 +853,7 @@ Se encontró el lector de huellas digitales de la compañía ZK Software modelo 
  \label{fig:finger_print_7}
 \end{figure}
 
-Una de las principales características de este lector, es que una vez configurada su dirección IP, se puede acceder a una página web para consultar los registros almacenados. Se pueden obtener registros del día actual, de ayer, se la semana pasada, o bien especificar la fecha para desplegarlos. 
+Una de las principales características de este lector, es que una vez configurada su dirección IP, se puede acceder a una página web para consultar los registros almacenados. Se pueden obtener registros del día actual, de ayer, de la semana pasada, o bien especificar la fecha para desplegarlos. 
 
 \begin{figure}[htb]
  \begin{center}
@@ -866,8 +866,8 @@ Una de las principales características de este lector, es que una vez configura
 En la figura \ref{fig:finger_print_8} se observa la página para seleccionar los usuarios almacenados en el lector y poder consultar sus registros de acuerdo a la fecha indicada. El procedimiento para obtener los datos y el registro de los empleados es el siguiente:
 
 \begin{enumerate}
- \item Mediante cURL se debe obtener la cookie de la página web del lector de huellas digitales, para poder consultar los registros.
- \item Con la cookie previamente descargada y con cURL\footnote{cURL es una herramienta para usar en un intérprete de comandos para transferir archivos con sintaxis URL, soporta FTP, FTPS, HTTP, HTTPS, TFTP, SCP, SFTP, Telnet, DICT, FILE y LDAP.} se accede a la dirección \url{http://192.168.101.23/form/AttLog}. En este caso la IP del lector de huellas es \texttt{192.168.101.23}. Con esto se obtiene la imagen de la figura \ref{fig:finger_print_8} que sirve para obtener los números de empleados de los usuarios registrados.
+ \item Mediante cURL\footnote{cURL es una herramienta para usar en un intérprete de comandos para transferir archivos con sintaxis URL, soporta FTP, FTPS, HTTP, HTTPS, TFTP, SCP, SFTP, Telnet, DICT, FILE y LDAP.} se debe obtener la cookie de la página web del lector de huellas digitales, para poder consultar los registros.
+ \item Con la cookie previamente descargada y con cURL se accede a la dirección \url{http://192.168.101.23/form/AttLog}. En este caso la IP del lector de huellas es \texttt{192.168.101.23}. Con esto se obtiene la imagen de la figura \ref{fig:finger_print_8} que sirve para obtener los números de empleados de los usuarios registrados.
  \item Con cada uno de los números de empleados obtenidos en el punto anterior, se consulta con cURL el URL \url{http://192.168.101.23/form/AttLog?act=1} con la fecha indicada, con lo que se obtiene la página con los registros almacendados para ese usuario. En caso de que el usuario no tenga registros para ese día, se pasa al siguiente usuario.
  
  \begin{figure}[htb]
@@ -888,4 +888,24 @@ En la figura \ref{fig:finger_print_8} se observa la página para seleccionar los
 
 \end{enumerate}
 
-Este proceso se lleva a cabo en un proceso CRON cada minuto.
+Este proceso se lleva a cabo en un proceso CRON cada minuto. Lo que garantiza que una vez que el usuario ha realizado su verificación en el lector, éste pueda utilizar de manera casi inmediata el sistema punto de venta.  No todos los usuarios utilizan directamente las terminales, el único puesto que maneja directamente las terminales son las personas que atienden los destinos de servicio a domicilio y auto (este destino es aquel en que el cliente ingresa con su carro al estacionamiento y realiza la orden desde él); por lo que se ejecute cada minuto el proceso que lee y procesa los datos del lector es correcto para la operación.
+
+Es muy importante que en el momento del enrolamiento o la verificación se coloque de manera adecuada el dedo, ya que de otra manera, existirán errores de captura/lectura. La correcta forma de colocar el dedo en el centro del lector de una manera plana y firme.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.7]{place_finger_1.png}
+ \end{center}
+ \caption{Forma ideal para colocar el dedo en el lector.}
+ \label{fig:finger_print_10}
+\end{figure}
+
+Es considerada una mala colocación del dedo en el lector, cuando el dedo no se encuentra completamente plano, no se encuentra en el centro del lector, ya sea que esté muy a la derecha, izquierda o abajo. O cuando el dedo no haga contacto la huella digital con el lector.
+
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[scale=0.7]{place_finger_2.png}
+ \end{center}
+ \caption{Forma incorrectas para colocar el dedo en el lector.}
+ \label{fig:finger_print_11}
+\end{figure}
