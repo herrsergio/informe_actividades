@@ -2,276 +2,12 @@
 % Sergio Cuellar
 % 30 de abril 2011
 
-\chapter{Desarrollo}
+\chapter{Proyectos desarrollados}
 \label{chap:desarrollo}
-
-El área de Desarrollo de Sistemas de Restaurantes está conformado por cuatro personas encargadas de proveer varios servicios de apoyo a alrededor de 340 restaurantes propios de la franquicia de PRB, así como alrededor de 150 restaurantes de otros franquiciatarios. Los requerimientos de desarrollos nuevos son proporcionados generalmente por el área de Operaciones cuando éstos tienen que ver la operación misma del restaurante, o bien, por la misma área cuando se deben realizar actualizaciones, corrección de bugs, etc., al sistema.
-
-\section{Objetivos}
-\label{sec:objetivos}
-
-Entre los servicios proporcionados por el área de Desarrollo de Sistemas de Restaurantes se encuentran:
-
-\begin{itemize}
- \item Desarrollo y mantenimiento de reportes solicitados por el área de Operaciones.
- \item Mantenimiento al punto de venta (programación de mejoras, nuevas funcionalidades, corrección de bugs).
- \item Programación de herramientas que coadyuven a la eficaz operación del restaurante.
- \item Desarrollo de aplicaciones que contribuyan a disminuir el costo de operación.
- \item Investigación de nueva infraestructura de sistemas en el restaurante (impresoras, tarjetas de vídeo, terminales, etc.)
-\end{itemize}
-
-\section{Descripción del Sistema en restaurantes}
-\label{sec:descripcion}
-
-Cada uno de los restaurantes cuenta con una computadora, en la cual se efectúan diversos procesos como son:
-
-\begin{itemize}
- \item Registro y procesamiento de la venta.
- \item Generación de reportes.
- \item Manejo de periféricos como impresora de tickets, impresora del gerente, cajas registradoras, terminales, etc.
- \item Actividades gerenciales (correo electrónico, consultas web de la intranet, uso de procesador de textos, hoja de cálculo, etc).
-\end{itemize}
-
-\subsection{Software Libre}
-\label{subsec:software_libre}
-
-Una de las características principales del sistema en restaurantes, es que casi en su totalidad, a excepción del punto de venta que fue desarrollado por la compañía, es software libre.
-
-El software libre es software que puede ser usado, estudiado y modificado sin restricción y el cual puede ser copiado y redistribuido en su forma modificada u original, ya sea sin restricciones o con mínimas restricciones que aseguren que los siguientes usuarios del software puedan seguir haciendo estas actividades. El software libre es generalmente disponible sin cargo alguno pero puede tener algunas cuotas, por ejemplo para ser distribuido en forma de CDs u otras formas.
-
-En la práctica, para que un software sea distribuido como software libre, el código fuente de éste debe estar disponible para el usuario, así como también indicarle en una nota que se le conceden los derechos arriba mencionados. Esta nota puede ser, ya sea, una licencia de software libre o indicando que el código fuente está disponible al dominio público.
-
-Las ventajas del software libre son:
-
-\begin{itemize}
- \item Bajo costo, lo que implica el ahorro en pago de licencias.
- \item Es posible adaptar el software a las necesidades que tenga cada usuario, teniendo como resultado un software personalizado.
- \item Al ser público el código fuente, permite que programadores hagan correcciones a errores y mejoren el software de manera rápida.
- \item De acuerdo a los dos últimos puntos, el software libre no depende de una única empresa u organización, lo que evita que se impongan condiciones en su uso, como ocurre con el software privado.
- \item La innovación tecnológica que surge gracias a que cada usuario puede hacer aportaciones a la mejora del software.
-\end{itemize}
-
-El sistema de software de los restaurantes se compone principalmente de:
-
-\begin{itemize}
- \item Sistema Operativo GNU/Linux kernel 2.6, basado en Knoppix con escritorio Xfce.
- \item Apache Tomcat
- \item Servidor HTTP Apache
- \item PostgreSQL
- \item Mozilla Firefox
- \item Mozilla Thunderbird
- \item OpenOffice.org
- \item Herramientas GNU (bash, ksh, awk, perl, etc.)
- \item Sistema punto de venta SUS/FMS (propietario, desarrollado por la misma compañía.
-\end{itemize}
-
-\subsection{GNU/Linux}
-\label{sec:linux}
-
-GNU/Linux se refiere al sistema operativo que utiliza el kernel Linux y las herramientas GNU. El kernel Linux puede ser instalado en una gran variedad de hardware, desde teléfonos móviles, computadoras tipo tableta, consolas de videojuegos, hasta mainframes y supercomputadoras. El kernel de Linux fue iniciado en 1991 por el finlandés Linus Torvalds. Las herramientas del sistema y librerías conocidas como GNU, fueron en un principio desarrolladas por Richard Stallman en 1983.
-
-Algunas características del kernel de Linux son:
-
-\begin{itemize}
- \item Es multitareas, permite ejecutar diferentes programas al mismo tiempo.
- \item Es multiusuario, distintos usuarios pueden estar conectados a la misma computadora al mismo tiempo.
- \item Es multiplataforma, puede ser instalado en distintos tipo de arquitectura de procesadores.
- \item Es multihilo, Linux tiene soporte en kernel nativo para el control de múltiples hilos independientes.
- \item Tiene soporte a una gran cantidad de sistemas de archivos (ext2, ext3, ext4, ReiserFS, XFS, JFS, FAT32, etc.).
-\end{itemize}
-
-
-\subsection{Apache Tomcat}
-\label{sec:tomcat}
-
-Apache Tomcat o simplemente Tomcat es un contenedor de servlets desarrollado por la Apache Software Foundation. Tomcat implementa las especificaciones de Java Servlet y JavaServer Pages (JSP) de Sun Microsystems (ahora Oracle).
-
-Un servlet es un tipo de clase de Java que es usada para extender las capacidades de un servidor que contienen aplicaciones que son accedidas mediante un modelo de programación petición-respuesta. Si bien, un servlet puede responder cualquier tipo de petición, son comúnmente usados en aplicaciones contenidas en un servidor web.
-
-Los JavaServer Pages, mejor conocidos como JSPs es una tecnología de Java que ayuda a los desarrolladores de software a generar páginas web de manera dinámica basadas en HTML, XML o algún otro tipo de documento.
-
-\subsection{Servidor HTTP Apache}
-\label{sec:apache}
-
-El servidor HTTP Apache, o mejor conocido únicamente como Apache, es un servidor web que implementa el protocolo HTTP/1.1. Una de las mayores ventajas de Apache es que puede ser mejorado con la ayuda de módulos compilados que extienden la funcionalidad del servidor. Hay módulos que permiten la interacción con distintos lenguajes de programación como Perl, Pyhton, PHP, etc. Existen módulos de autenticación para aumentar la seguridad del servidor, como mod\_auth, mod\_access, etc. Una de las características más importantes de Apache es el manejo de host virtuales, lo que permite que un servidor Apache maneje diferentes sitios web.
-
-Tomcat y Apache pueden ser conectados a través del conector mod\_jk. Eso es de gran ayuda, por ejemplo, cuando se tienen páginas programadas en PHP y en JSP, y se quiere tener un único puerto de acceso a la página principal. Con mod\_jk, Apache recibe todas las peticiones y les da respuesta únicamente las de tipo PHP y HTML, y redirige a Tomcat las que tienen que ver con JSPs. Esta implementación la realicé en PRB para evitar el uso del puerto 80 para reportes en PHP y el 8080 para reportes programados en JSP. Se unificó el URL que es ingresado en los restaurantes.
-
-\subsection{PostgreSQL}
-\label{sec:postgresql}
-
-PostgreSQL, o simplemente Postgres, es un sistema de gestión de base de datos relacional orientada a objetos (ORDBMS\footnote{object-relational database management system}). Algunas de sus características son:
-
-\begin{itemize}
- \item Uso de lenguajes procedurales o mejor conocidos como \textit{store procedures}, permiten que bloques de código sean ejecutados por el servidor de base de datos y pueden ser escritos en lenguajes de programación distintos a SQL y C; y sirven para crear funciones definidas por el usuario (subrutinas, triggers, etc.). Pueden ser programados en Perl, Python, pgSQL, Tcl, principalmente.
- \item Uso de índices, triggers, transacciones anidadas, vistas.
- \item Numerosos tipos de datos y posibilidad de definir nuevos.
- \item Posee interfases de programación de aplicaciones (API\footnote{Application Programming Interface} en varios lenguajes como C, C++, Java, Perl, Ruby, PHP, entre otros.
- \item Es 100\% ACID\footnote{\textit{Atomicity, Consistency, Isolation, Durability}. En base de datos se denomina ACID a un conjunto de características necesarias para que una serie de instrucciones puedan ser consideradas como una transacción.}
-\end{itemize}
-
-\subsection{Mozilla Firefox}
-\label{sec:firefox}
-
-Mozilla Firefox es un navegador web disponible para varios sistemas operativos como Microsoft Windows, GNU/Linux, Mac OS X, FreeBSD y muchos otros. Para la visualización de páginas web, Firefox utiliza a Gecko, que es un motor de renderizado, que implementa la mayoría de los estándares web. Algunas de las características de Firefox son:
-
-\begin{itemize}
- \item Navegación por pestañas.
- \item Corrector ortográfico.
- \item Navegación privada.
- \item Soporte de complementes (plug-ins) desarrollados por terceros para incrementar la funcionalidad del navegador.
- \item Administrador de descargas.
-\end{itemize}
-
-\subsection{Mozilla Thunderbird}
-\label{sec:thunderbird}
-
-Mozilla Thunderbird es un cliente de correo electrónico y noticias. Puede manejar múltiples cuentas de correo electrónico y noticias. Características como son la búsqueda rápida, filtrado de mensajes, agrupamiento de mensajes y etiquetas ayudan a manejar y encontrar mensajes de una manera fácil. Thunderbird incorpora un filtro de spam tipo Bayesiano para la clasificación de correo no deseado. Al igual que Firefox, a Thunderbird le pueden ser instalados complementos o extensiones que amplían la funcionalidad de éste. Soporta POP e IMAP, así como LDAP para el manejo de la libreta de direcciones. Está disponible para varios sistemas operativos como Microsoft Windows, GNU/Linux, Mac OS X, Opensolaris, etc.
-
-\subsection{OpenOffice.org}
-\label{sec:openoffice}
-
-OpenOffice.org es una suite de aplicaciones cuyos componentes principales son procesador de palabras, hoja de cálculo, presentaciones, gráficas y base de datos. Está disponible para distintos sistemas operativos. El formato nativo de OpenOffice.org es el estándar ISO/IEC OpenDocument (ODF), pero también soporta la lectura y en la mayoría, la escritura de formatos propietarios como los de WordPerfect, StarOffice, MS Works, Rich Text format, los formatos de Microsoft Office, entre otros.
-
-Posee diccionarios ortográficos en varios idiomas. Puede usar extensiones para agregar funciones adicionales. Las aplicaciones incluidas con OpenOffice.org son:
-
-\begin{itemize}
- \item OpenOffice.org Writer es el procesador de textos. Una de las características de Writer es que permite exportar documentos a PDF y HTML sin software adicional.
- \item OpenOffice.org Calc es una hoja de cálculo similar a Microsoft Excel, pero con más características.
- \item OpenOffice.org Impress es el programa usado para realizar presentaciones similares a Microsoft PowerPoint. Puede exportar presentaciones al formato SWF, permitiendo visualizar la presentación en cualquier computadora que cuente con un reproductor Flash.
- \item OpenOffice.org Base es un programa similar a Microsoft Access, el cual permite la creación y manejo de base de datos, elaboración de formularios y reportes.
- \item OpenOffice.org Draw es un editor de gráficos vectoriales y herramienta para elaborar diagramas, similar a Microsoft Visio.
- \item OpenOffice.org Math es una aplicación diseñada para la creación y edición de fórmulas matemáticas. Las fórmulas pueden ser incorporadas a otros documentos de OpenOffice.org, como en un documento de Writer o bien exportar la fórmula a otro formato de archivo como PDF.
-\end{itemize}
-
-\subsection{Sistema Punto de Venta SUS}
-\label{sec:sus}
-
-El sistema punto de venta utilizado tanto en PH como en KFC se llama SUS, el cual fue desarrollado por el área de desarrollo de Yum Restaurants de Estados Unidos. Nosotros contamos con el código fuente, con el cual podemos corregir errores, añadir funcionalidades o mejorar las ya existentes. El punto de venta no es software libre.
-
-SUS es capaz de realizar toma de ordenes, el despacho de estas ordenes, retiros, funciones de control y actividades administrativas propias de un restaurante.
-
-El sistema SUS divide las actividades realizadas en el restaurante en las siguientes áreas:
-
-\begin{itemize}
- \item Toma de ordenes.
- \item Control de efectivo.
- \item Funciones administrativas.
- \item Inventarios.
- \item Control de asistencia.
- \item Mantenimiento de tablas del sistema.
- \item Reportes.
-\end{itemize}
-
-Estas áreas corresponden también a las áreas en las que se les puede asignar responsabilidad al equipo del restaurante. Cada nivel de responsabilidad, junto con el asociado cuenta con un nombre de usuario y contraseña. Esto permite la asignación de responsabilidades, limitando el acceso a partes del sistema con información importante de los clientes y del restaurante.
-
-\subsubsection{Toma de ordenes}
-\label{sec:sus_toma_ordenes}
-
-Esta función se utiliza principalmente en Pizza Hut, y en KFC en los restaurantes con servicio de entrega a domicilio, en donde es de suma importancia, que cada producto sea rápida y fácilmente ordenado para toda ocasión, de esta manera se agiliza enormemente el proceso de toma de ordenes.
-
-\subsubsection{Control de Efectivo y despacho}
-\label{sec:sus_control_efectivo}
-
-Las funciones de esta parte del punto de venta permiten realizar retiros de dinero de manera eficiente 
-
-\subsection{e-Reports}
-\label{sec:ereports}
-
-\textit{e-Reports} es una herramienta desarrollada para consultar reportes via web, mediante Firefox, utilizando el servidor Tomcat junto con la base de datos de PostgreSQL. Cada restaurante cuenta con este reporteador para realizar distintas actividades, como son, la consulta de su inventario, la captura de gastos semivariables, conocer el número de transacciones mediante gráficas, etc. Es una de las herramientas más usadas en los restaurantes, junto con el punto de venta, debido a la gran cantidad de información que se puede consultar. Al ser una herramienta web, ésta puede ser consultada desde cualquier computadora que pertenezca a la VPN y conozca la clave para ingresar.
-
-Los reportes son programados en JSP, JavaScript y en algunos casos se hace uso de scripts externos desarrollados en Perl y Bash principalmente. Además, se cuenta con una API desarrollada especialmente para e-Reports, en la cual ya existen métodos para la conexión a base de datos, la creación de tablas dinámicas, conversión de resultados de consulta de base de datos a arreglos de JavaScript, etc. El framework de JavaScript utilzado es BlueShoes\footnote{http://www.blueshoes.org/en/javascript/}.
-
-\begin{figure}[htb]
- \begin{center}
-  \includegraphics[scale=0.5]{ereports_1.png}
- \end{center}
- \caption{Página principal de e-Reports}
- \label{fig:ereports}
-\end{figure}
-
-\subsection{Reporteador}
-\label{sec:reporteador}
-
-Existe otra herramienta para consultar reportes via web llamado \textit{Reporteador}, el cual, a diferencia de \textit{e-Reports}, es usado en mayor parte de los reportes que posee, para desplegar información relacionada directamente con reportes generados por el mismo punto de venta. El despliegue de estos reportes es programado en HTML, PHP y algunos CGI's\footnote{Common Gateway Interface} en Python. Se puede decir que \textit{e-Reports} y el \textit{Reporteador} se complementan, pero en un futuro, el plan es migrar todos los reportes de este último, para concentrar todo en \textit{e-Reports}.
-
-El \textit{Reporteador} posee una clasificación de reportes, la cual está conformada por:
-
-\begin{itemize}
- \item Ingresos y gastos: Ventas Diarias, Ventas por Hora, Operaciones Diarias, Cancelaciones Diarias, Auditoría de Cajero y Ventas pollo por hora (para KFC).
- \item Inventarios: Inventario de críticos, usos ideales, Ordenes de compra, Recepciones.
- \item Mano de Obra: Modelo de Labor.
- \item Estadísticas: Pronóstico y Ensamble, Historial de Pedidos, Mix Diario por Productos, Mix por Cajero, Estadística Diaria.
- \item Home Service: Auditoría de Repartidor, Reporte de Vendedores, Mapa por calles, Mapa de Calles, etc.
- \item Planeación: Ya no cuenta con algún reporte.
- \item Auditoría: Notas de consumo, Retiros Parciales, Depósitos de Dólares.
- \item Utilerías: Ya no cuenta con algún reporte.
-\end{itemize}
-
-El \textit{Reporteador} y \textit{e-Reports} conviven en la misma dirección y mismo puerto gracias al mod\_jk, descrito en \ref{sec:apache}
-
-\begin{figure}[htb]
- \begin{center}
-  \includegraphics[scale=0.5]{reporteador_1.png}
- \end{center}
- \caption{Reporteador}
- \label{fig:reporteador}
-\end{figure}
-
-A continuación se muestran un diagrama que representa a muy grandes rasgos el sistema en Pizza Hut:
-
-\begin{figure}[htb]
- \begin{center}
-  \includegraphics[scale=0.7]{diagrama_ph_sus_1.png}
- \end{center}
- \caption{Sistema en restaurantes PH}
- \label{fig:sist_rest_ph}
-\end{figure}
-
-El sistema se compone de una computadora en la cual se ejecuta el sistema punto de venta, se generan reportes propios del punto de venta, el gerente del restaurante consulta el correo electrónico, consulta reportes web propios del restaurante y de la intranet y realiza actividades propias de la operación (como cierres de inventarios, altas/bajas de empleados, etc.). Posee una impresora láser para imprimir documentos, reportes, etc.
-
-La computadora tiene una conexión a internet protegida por un firewall y comunicación a la VPN\footnote{Virtual Private Network, red privada virtual} de la empresa.
-
-Debido a la gran cantidad de equipo que se le puede conectar a la computadora, entre terminales, cajas registradoras e impresoras de tickets, principalmente, se hace uso de un concentrador de puertos seriales, a los cuales se conectan todos los dispositivos. Estos concentradores pueden ser de 6 o 12 puertos y pueden ser conectados más de uno, en caso necesario. La impresora es de matriz y se manda la impresión de los tickets una vez terminada de capturar la orden.
-
-Las terminales, en caso de PH, sirven para tener el punto de venta, que se ejecuta en la computadora, en cada una de ellas, y así poder tomar varias ordenes al mismo tiempo.
-
-
-La siguiente figura muestra el sistema en KFC a grandes rasgos:
-
-\begin{figure}[htb]
- \begin{center}
-  \includegraphics[scale=0.7]{diagrama_kfc_sus_1.png}
- \end{center}
- \caption{Sistema en restaurantes KFC}
- \label{fig:sist_rest_kfc}
-\end{figure}
-
-A diferencia del sistema en PH, se cuentan con cajas registradoras en lugar de terminales. Estas cajas registradoras son de la marca Panasonic, y se tienen dos modelos: touchscreen (Panasonic 790, que cuenta con sistema operativo Windows XP Embedded) para restaurantes con un gran número de transacciones y de teclado (Panasonic 5500, usando su propio firmware) para las demás. Se cuenta con un programa desarrollado en la empresa que convierte la salida de las cajas registradoras en registros de venta que son ingresados al punto de venta. Cada caja resgistradora cuenta con su propia impresora de tickets. Dentro del grupo de cajas registradoras se debe tener una especial llamada \textit{master}, la cual es la encargada de trasmitir programación a las secundarias, así como también de recibir información de venta de las demás cajas para ser impresas en el impresor de auditoría. A partir de un desarrollo realizado por mi, esta auditoría se dejó de imprimir y ahora es almacenada de manera electrónica.
-
-\begin{figure}[htb]
- \begin{center}
-  \includegraphics[scale=0.7]{panasonic_790.png}
- \end{center}
- \caption{Caja Panasonic 790}
- \label{fig:pana_790}
-\end{figure}
-
-\begin{figure}[htb]
- \begin{center}
-  \includegraphics[scale=0.7]{panasonic_5500.png}
- \end{center}
- \caption{Caja Panasonic 5500}
- \label{fig:pana_5500}
-\end{figure}
-
-
-\section{Actividades Desarrolladas}
-\label{sec:rep_desarrollo}
 
 A continuación se presentan algunas actividades desarrolladas en la empresa.
 
-\subsection{Auditoría Electrónica}
+\section{Auditoría Electrónica}
 \label{sec:auditoria}
 
 La operación del negocio debe ser vigilada por algún medio, en el cual se plasme un historial de ventas de cada caja registradora en KFC. Es por esto que se cuenta con un impresor de tickets llamado de auditoría, el cual imprime el resumen de venta de cada ticket de cada caja.
@@ -323,9 +59,9 @@ La configuración que indica el fabricante Digi para realizar un cable para impr
  }
 \end{center}
 
-Para poder saber qué datos manda la caja se hizo uso de un cable con el que se pueda leer la comunicación de la caja registradora (DB-9) al impresor de auditoría (DB-25). Por lo que se abrió el cable y se insertaron las líneas descritas en la configuración anterior para un RJ-45, de esta manera se cuenta con un cable capaz de leer los datos mandados por la caja registradora. Para la lectura de estos datos se utilizó el software \textit{minicom}. Este es un programa de software libre utilizado para monitorear el puerto serie, análogo al \textit{Hyperterminal} de Windows. Los resultados indicaron que la caja manda el ticket con únicamente la información necesaria como número de productos, el producto, el costo del producto, el subtotal, el total, fecha, hora, número de ticket y el cajero que lo tomó. Además de estos datos, se cuentan con caracteres de control especiales para el impresor.
+Para poder saber qué datos manda la caja hice uso de un cable con el que se pueda leer la comunicación de la caja registradora (DB-9) al impresor de auditoría (DB-25). Por lo que abrí el cable e inserté las líneas descritas en la configuración anterior para un RJ-45, de esta manera se cuenta con un cable capaz de leer los datos mandados por la caja registradora. Para la lectura de estos datos utilice el software \textit{minicom}. Este es un programa de software libre utilizado para monitorear el puerto serie, análogo al \textit{Hyperterminal} de Windows. Los resultados indicaron que la caja manda el ticket con únicamente la información necesaria como número de productos, el producto, el costo del producto, el subtotal, el total, fecha, hora, número de ticket y el cajero que lo tomó. Además de estos datos, se cuentan con caracteres de control especiales para el impresor.
 
-Otra característica que se observó fue que la caja constantemente se comunica con el impresor para saber si está conectado y este último le manda una respuesta. Por lo que el programa desarrollado en C tendría que: limpiar los caracteres de control, y emular la comunicación que establece la caja registradora par evitar que marque error.
+Otra característica que observé fue que la caja constantemente se comunica con el impresor para saber si está conectado y este último le manda una respuesta. Por lo que el programa desarrollado en C tendría que: limpiar los caracteres de control, y emular la comunicación que establece la caja registradora par evitar que marque error.
 
 El cable original que va de la caja (DB-9) al impresor (DB-25) tiene la siguiente configuración:
 
@@ -351,7 +87,7 @@ El cable original que va de la caja (DB-9) al impresor (DB-25) tiene la siguient
   \end{tabular}
 \end{center}
 
-De acuerdo a la configuración anterior y la indicada por el fabricante para el cable DB-9 a RJ-45, se realizó la siguiente configuración de cable:
+De acuerdo a la configuración anterior y la indicada por el fabricante para el cable DB-9 a RJ-45, realicé la siguiente configuración de cable:
 
 \begin{center}
  \begin{tabular}{|c|c|}
@@ -377,11 +113,11 @@ De acuerdo a la configuración anterior y la indicada por el fabricante para el 
  \end{tabular}
 \end{center}
 
-Se desarrolló en lenguaje C el programa que lee los datos de la caja y además emula la respuesta del impresor a la caja. El programa \textit{portAudit} recibe como argumento el puerto serie del concentrador en el cual está conectado el cable. El programa \textit{portAudit} recibe como variable de ambiente el tipo de caja: \texttt{PORT\_TIPO\_CAJA=790} y \texttt{export PORT\_TIPO\_CAJA=5500} ya que los caracteres de control son distintos para cada caja registradora. Se creó un script encargado de establecer estas variables, la configuración del puerto serial (velocidad, paridad, etc.) y la ejecución del binario.
+Desarrollé en lenguaje C el programa que lee los datos de la caja y además emula la respuesta del impresor a la caja. El programa \textit{portAudit} recibe como argumento el puerto serie del concentrador en el cual está conectado el cable. El programa \textit{portAudit} recibe como variable de ambiente el tipo de caja: \texttt{PORT\_TIPO\_CAJA=790} y \texttt{export PORT\_TIPO\_CAJA=5500} ya que los caracteres de control son distintos para cada caja registradora. Creé un script encargado de establecer estas variables, la configuración del puerto serial (velocidad, paridad, etc.) y la ejecución del binario.
 
 El programa detecta la caja que originó el ticket, y de acuerdo a esta información la almacena en un archivo de texto para cada caja, además de un archivo que concentra la información de todas las cajas.
 
-De acuerdo a la versión del sistema operativo en restaurantes, se añadió una entrada en el archivo \texttt{/etc/inittab} para poder controlar de manera automática el inicio del servicio de almacenamiento de auditoría de manera automática de acuerdo al nivel de ejecución del sistema. 
+De acuerdo a la versión del sistema operativo en restaurantes, añadí una entrada en el archivo \texttt{/etc/inittab} para poder controlar de manera automática el inicio del servicio de almacenamiento de auditoría de manera automática de acuerdo al nivel de ejecución del sistema. 
 
 A continuación se muestran dos tickets de ejemplo de auditoría:
 
@@ -443,7 +179,7 @@ NACHO
          Gracias por su compra           
 \end{Verbatim}
 
-Para la verificación del correcto funcionamiento del \texttt{portAudit} se creo un script que valida que todas las cajas estén registrando auditoría, y que no falte ningún ticket. Esto se realiza verificando primero, la existencia de la auditoría de las cajas en donde ya haya habido venta, después se busca el número de ticket en los archivos generados por la interfase que convierte la información de la caja registradora al punto de venta, y se revisa que en la auditoría correspondiente a la caja se encuentre. En caso de que no esté en ejecución el \texttt{portAudit}, que no se estén generando los archivos de auditoría o falten tickets de auditoría se genera un correo electrónico de manera automática para avisar de la situación correspondiente. Este script se ejecuta mediante CRON cada veinte minutos.
+Para la verificación del correcto funcionamiento del \texttt{portAudit} creé un script que valida que todas las cajas estén registrando auditoría, y que no falte ningún ticket. Esto se realiza verificando primero, la existencia de la auditoría de las cajas en donde ya haya habido venta, después se busca el número de ticket en los archivos generados por la interfase que convierte la información de la caja registradora al punto de venta, y se revisa que en la auditoría correspondiente a la caja se encuentre. En caso de que no esté en ejecución el \texttt{portAudit}, que no se estén generando los archivos de auditoría o falten tickets de auditoría se genera un correo electrónico de manera automática para avisar de la situación correspondiente. Este script se ejecuta mediante CRON cada veinte minutos.
 
 Ejemplo de correo electrónico cuando falta el archivo de auditoría de alguna caja:
 
@@ -478,7 +214,7 @@ Falta(n) archivo(s) de auditoria de caja(s):
 * Revisar concentrador
 \end{Verbatim}
 
-El gerente del restaurante puede revisar los tickets de auditoría y del punto de venta mediante un reporte tipo web, en donde le indica la fecha que requiere consultar y como opción tiene la de ingresar el número de ticket a buscar, en caso de que no ingrese este datos, se despliegan todos los tickets del día. Esto se logra gracias a que los tickets de auditoría son almacenados en un directorio específico. El reporte consulta el archivo de acuerdo a la fecha seleccionada. 
+El gerente del restaurante puede revisar los tickets de auditoría y del punto de venta mediante un reporte tipo web, en donde le indica la fecha que requiere consultar y como opción tiene la de ingresar el número de ticket a buscar, en caso de que no ingrese este dato, se despliegan todos los tickets del día. Esto se logra gracias a que los tickets de auditoría son almacenados en un directorio específico. El reporte consulta el archivo de acuerdo a la fecha seleccionada. 
 
 \begin{figure}[htb]
  \begin{center}
@@ -490,7 +226,7 @@ El gerente del restaurante puede revisar los tickets de auditoría y del punto d
 
 Con esta solución se ha tenido un gran ahorro económico derivado de dejar de consumir papel, cintas de tinta, impresores y su mantenimiento. Igualmente se tiene un impacto benéfico a la ecología, ya que se deja de utilizar una cantidad importante de papel, teniendo una auditoría \textit{paperless}.
 
-\subsection{Reporte de Estimado de Usos Ideales en KFC}
+\section{Reporte de Estimado de Usos Ideales en KFC}
 \label{sec:usos_ideales_kfc}
 
 En KFC (y Pizza Hut) se necesita saber con anticipación el número de transacciones que se tendrán para cada día, de esta manera se puede saber, mediante un pronóstico, el número de hamburguesas que se deben preparar, el número de piezas de pollo que se deben marinar para posteriormente cocinarlas, el número de purés que se deben tener listos, etc. De esta manera la operación del restaurante está preparada para el nivel de transacciones que se tengan durante el día. Sabiendo esto, el gerente sabe el nivel de inventario que debe tener para satisfacer las transacciones, el número de piezas de pollo que debe descongelar, el número de asociados (empleados) que debe tener a cierta hora del día para poder preparar los productos, etc. 
@@ -499,9 +235,9 @@ El uso ideal es la cantidad de producto que el restaurante tuvo que haber usado,
 
 El uso ideal se conoce una vez que han cerrado las ventas para el día y se generan los reportes del punto de venta. Para el gerente de restaurante es importante saber cuántos vasos, tapas, panes, kilos de papa debe tener listos para la operación de un día específico. Para esto debe conocer el pronóstico en el número de transacciones que tendrá para un día específico. No es lo mismo un domingo que un martes, ni un 16 de diciembre, que un 24 de diciembre. Una vez conocido el número de transacciones pronosticadas, el gerente, debe investigar cuál día tuvo ese número de transacciones, pero ahora reales. Una vez hecho esto debe consultar un reporte de esa fecha generado por el punto de venta donde se encuentran los usos ideales y obtener de el reporte el uso ideal de los productos que necesite.
 
-Esto ocasiona que el gerente ocupe mucho tiempo en la búsqueda de estos usos ideales, por lo que se desarrolló un reporte que automatice esta actividad.
+Esto ocasiona que el gerente ocupe mucho tiempo en la búsqueda de estos usos ideales, por lo que desarrollé un reporte que automatice esta actividad.
 
-Para facilitar la elaboración de este reporte, se creó una tabla en la base de datos de PostgreSQL que almacene los usos ideales por fecha y por identificador de producto. Estos datos se obtiene de un comando que ya existe en el sistema y mediante un script en Perl se parsean los resultados y se ingresan a la base de datos. Esta carga se realiza de manera diaria, una vez que se han generado los usos ideales del día anterior. 
+Para facilitar la elaboración de este reporte, creé una tabla en la base de datos de PostgreSQL que almacene los usos ideales por fecha y por identificador de producto. Estos datos se obtiene de un comando que ya existe en el sistema y mediante un script en Perl se parsean los resultados y se ingresan a la base de datos. Esta carga se realiza de manera diaria, una vez que se han generado los usos ideales del día anterior. 
 
 Esta es la descripción de la tabla de PostgreSQL encargada de almacenar los usos ideales:
 
@@ -523,9 +259,9 @@ Foreign-key constraints:
 
 La llave foránea \texttt{inv\_id} pertenece a la tabla \texttt{op\_grl\_cat\_inventory}, la cual contiene, entre otros datos, el nombre del producto y la unidad de medida.
 
-El los restaurantes existe una aplicación llamada \textit{e-Reports}, la cual está desarrollada en JSP\footnote{Java Server Pages}. En está aplicación se añaden los reportes requeridos clasificándolos de acuerdo a su finalidad. El reporte de ``Usos Ideales'' se  encuentra en el menú de \textit{Mano de Obra \textendash\textgreater Planeación \textendash\textgreater Usos Ideales Diarios}.
+El los restaurantes existe una aplicación llamada \textit{e-Reports}\pageref{sec:ereports}, la cual está desarrollada en JSP\footnote{Java Server Pages}. En está aplicación se añaden los reportes requeridos clasificándolos de acuerdo a su finalidad. El reporte de ``Usos Ideales'' se  encuentra en el menú de \textit{Mano de Obra \textendash\textgreater Planeación \textendash\textgreater Usos Ideales Diarios}.
 
-Se crearon archivos de configuración de productos clasificados de acuerdo a la línea de producción donde son utilizados. Los archivos son:
+Creé archivos de configuración de productos clasificados de acuerdo a la línea de producción donde son utilizados. Los archivos son:
 
 \begin{itemize}
  \item Biscuits.conf
@@ -580,7 +316,7 @@ A continuación se muestra una pantalla de resultados del reporte:
  \label{fig:usos_ideales_kfc}
 \end{figure}
 
-\subsection{Cierre de Lote de Tarjeta de Crédito}
+\section{Cierre de Lote de Tarjeta de Crédito}
 \label{sec:cierre_lote}
 
 El uso de tarjetas de crédito y débito es indispensable para cualquier negocio ya que al no aceptarlas se pueden perder valiosas transacciones. Las tarjetas, hoy en día, no sólo son un método o forma de pago, sino que da seguridad a quienes la aportan, tanto seguridad al no portar efectivo como seguridad de poder pagar a largo plazo en caso de que no cuenten con el dinero, además de poder tener diferentes beneficios con sus puntos que otorga el banco al realizar compras, como viajes, artículos entre otros.
@@ -592,7 +328,7 @@ Existe una actividad muy importante que se debe realizar siempre al final del d�
 
 Por esta razón, la necesidad del negocio requiere de una aplicación en la cual los asociados ingresen el monto total cobrado de cada terminal bancaria, forzándolos ha haber realizado el cierre de lote en cada dispositivo. La aplicación fue desarrollada para \textit{e-Reports}.
 
-Los únicos asosciados autorizados para realizar el cierre de lote, son aquellos que poseen un nivel de seguridad 1 en el sistema de punto de venta. Se creó una tabla en la base de datos de PostgreSQL (\texttt{ss\_cat\_terminals\_ccard}) que contiene información relacionada al número de terminales bancarias con el que cuenta el restaurante. De esta manera, únicamente se despliegan el número de terminales bancarias con las que cuente el restaurante.
+Los únicos asociados autorizados para realizar el cierre de lote, son aquellos que poseen un nivel de seguridad 1 en el sistema de punto de venta. Creé una tabla en la base de datos de PostgreSQL (\texttt{ss\_cat\_terminals\_ccard}) que contiene información relacionada al número de terminales bancarias con el que cuenta el restaurante. De esta manera, únicamente se despliegan el número de terminales bancarias con las que cuente el restaurante.
 
 Los datos que deben ser ingresados por cada terminal bancaria son:
 
@@ -652,7 +388,7 @@ Los campos indican:
 \end{description}
 
 
-\subsection{Proyecto de Control de Asistencia mediante Lector de Huellas Digitales}
+\section{Proyecto de Control de Asistencia mediante Lector de Huellas Digitales}
 \label{sec:fingerprint}
 
 La tecnología de lectores de huellas digitales está siendo usada en una gran variedad de aplicaciones e industrias. Provee mayor seguridad y evita el mantenimiento de contraseñas. La situación actual del negocio es que las personas en los restaurantes poseen una contraseña con la cual registran su entrada, la cual les permiten comenzar a realizar operaciones el sistema punto de venta,  y salida. Las horas trabajadas son tomadas en cuenta para el cálculo de la nómina. Las contraseñas pueden ser compartidas, dando lugar a que algún compañero realice las entradas de los demás, aún cuando éstos lleguen tarde. Así mismo la salida es un problema, ya es muy común que los empleados olviden realizar su salida, y el gerente puede ingresar sus horas de salida, lo que conlleva a malentendidos. Toda esta situación afecta directamente a la nómina, ya que no se están contando de manera real las horas trabajadas.
@@ -672,7 +408,7 @@ Las huellas digitales se forman de acuerdo a una combinación de la carga genét
 \end{figure}
 
 
-\subsubsection{Tipos de sensores}
+\subsection{Tipos de sensores}
 \label{sec:fp_sensores}
 
 
@@ -682,7 +418,7 @@ Los scanners de huellas digitales involucran la captura de una imagen digital de
 
 Los scanners capacitivos, al igual que los ópticos, generan una imagen de la huella digital, pero en lugar de capturar la imagen mediante luz, se utiliza el principio de capacitancia. El sensor que contiene arreglos de pixeles funciona como una placa de un capacitor, la  capa de la piel, conocida como dermis (que conduce electricidad) es la otra placa, y la epidermis funciona como un dieléctrico.
 
-\subsubsection{Ventajas y desventajas}
+\subsection{Ventajas y desventajas}
 \label{sec:fp_pros_cons}
 
 Existen diferentes maneras en las cuales un sistema de seguridad puede verificar que alguien es un usuario autorizado. La mayoría de los sistemas buscan por una o más de las siguientes sentencias:
@@ -707,7 +443,7 @@ A pesar de ser tan efectivas, no son infalibles, y también tienen desventajas. 
 
 Para hacer estos sistemas más robustos, conviene utilizar el análisis biométrico con un sistema convencional de identificación, como una contraseña. La necesidad del negocio no la requiere directamente, solamente como medio de respaldo en caso de que el dispositivo lector falle.
 
-\subsubsection{Prototipo 1: Lector Microsoft}
+\subsection{Prototipo 1: Lector Microsoft}
 \label{sec:lector_microsoft}
 
 Al comenzar a realizar el proyecto se contaba con un lector de huellas digitales modelo ''Microsoft Fingerprint Reader``, el cual es un lector con conexión USB. La desventaja en un principio radicaba en la incertidumbre de que el dispositivo funcionara en una computadora con GNU/Linux. Al conectarlo y ejecutar el comando \texttt{dmesg} se observa que el kernel identifica correctamente el lector.
@@ -751,16 +487,16 @@ Uno de los grandes problemas con el sistema actual, es que a pesar de que funcio
  \item \textit{GLib} (ver. 2.28.0). Es una biblioteca de propósito general, originalmente parte de GTK+, pero a partir de la versión 2.0 los desarrolladores decidieron separarlas para crear un nuevo producto. GLib proporciona estructuras de datos avanzadas, como listas doblemente ligadas, tablas hash, arreglos dinámicos, árboles binarios, etc. Además provee de funciones para programación de hilos, colas, acceso seguro a memoria, timers, etc.
  \item \textit{ImageMagick} (ver. 6.6.0-4). Es una aplicación que sirve para crear, editar y componer imágenes. Puede leer, convertir y guardar imágenes en una gran variedad de formatos.
  \item \textit{libusb} (ver 1.0.8). Es una biblioteca que proporciona las funciones necesarias para el control en la transmisión y recepción de datos de un dispositivo USB.
- \item \textit{nss}. \textit{Network Security Services} es un conjunto de bibliotecas diseñadas por Mozilla para desarrollo de aplicaciones seguras cliente/servidor. Proporciona bibliotecas seguras como SSL\footnote{Secure Socket Layer} y S/MIME\footnote{Secure/Multipurpose Internet Mail Extensions}. Esta herramienta fue la más difícil de compilar y adaptar para el sistema actual, ya que se tuvieron que adecuar algunos archivos del código fuente para que pudiese compilar. Además de que el código fuente que proporciona Mozilla no sigue un estándar (archivos \texttt{configure}, \texttt{Makefile} y \texttt{autoconf}) y su documentación es deficiente.
+ \item \textit{nss}. \textit{Network Security Services} es un conjunto de bibliotecas diseñadas por Mozilla para desarrollo de aplicaciones seguras cliente/servidor. Proporciona bibliotecas seguras como SSL\footnote{Secure Socket Layer} y S/MIME\footnote{Secure/Multipurpose Internet Mail Extensions}. Esta herramienta fue la más difícil de compilar y adaptar para el sistema actual, ya que tuve que adecuar algunos archivos del código fuente para que pudiese compilar. Además de que el código fuente que proporciona Mozilla no sigue un estándar (archivos \texttt{configure}, \texttt{Makefile} y \texttt{autoconf}) y su documentación es deficiente.
 \end{itemize} 
 
-Originalmente \texttt{libfprint} no es multiusuario, el software está diseñado para almacenar la información de las huellas digitales en el \texttt{\$HOME} de cada usuario, por lo que es necesario que los usuarios tengan una cuenta en el sistema. Para corregir este problema se tuvo que modificar el código fuente de \texttt{libfprint} con el objetivo de que se almacene la información de todos los usuarios en un solo directorio y en subdirectorios de acuerdo al número de empleado registrado en el punto de venta.
+Originalmente \texttt{libfprint} no es multiusuario, el software está diseñado para almacenar la información de las huellas digitales en el \texttt{\$HOME} de cada usuario, por lo que es necesario que los usuarios tengan una cuenta en el sistema. Para corregir este problema modifiqué el código fuente de \texttt{libfprint} con el objetivo de que se almacene la información de todos los usuarios en un solo directorio y en subdirectorios de acuerdo al número de empleado registrado en el punto de venta.
 
-Se desarrolló una interfaz gráfica usando \textit{Swing} para la entrada/salida y enrolamiento de los empleados. \textit{Swing} es una biblioteca gráfica para Java. Incluye widgets para interfaz gráfica de usuario tales como cajas de texto, botones, desplegables y tablas.
+Desarrollé una interfaz gráfica usando \textit{Swing} para la entrada/salida y enrolamiento de los empleados. \textit{Swing} es una biblioteca gráfica para Java. Incluye widgets para interfaz gráfica de usuario tales como cajas de texto, botones, desplegables y tablas.
 
-Debido a que \texttt{libfprint} está programado en C y la interfaz gráfica es en Java, se utilizó JNI (\textit{Java Native Interface} para funcionar. \textit{JNI} es un framework de programación que permite que un programa escrito en Java ejecutado en la máquina virtual java (JVM) pueda interactuar con programas escritos en otros lenguajes como C, C++ y ensamblador, la desventaja más importante es la pérdida de portabilidad que ofrece Java.
+Debido a que \texttt{libfprint} está programado en C y la interfaz gráfica es en Java, utilicé JNI (\textit{Java Native Interface} para funcionar. \textit{JNI} es un framework de programación que permite que un programa escrito en Java ejecutado en la máquina virtual java (JVM) pueda interactuar con programas escritos en otros lenguajes como C, C++ y ensamblador, la desventaja más importante es la pérdida de portabilidad que ofrece Java.
 
-Se programaron dos funciones en C usando JNI: la de verificación y la de enrolamiento. A continuación se muestra el encabezado del archivo de verificación:
+Programé dos funciones en C usando JNI: la de verificación y la de enrolamiento. A continuación se muestra el encabezado del archivo de verificación:
 
 \begin{Verbatim}
 JNIEXPORT jint JNICALL Java_PRBAS_PRBAttendance_verify
@@ -769,7 +505,7 @@ JNIEXPORT jint JNICALL Java_PRBAS_PRBAttendance_verify
 
 El apuntador \texttt{JNIEnv *env}, junto con \texttt{jobject obj} siempre deben ir al programar con JNI, ya que son interfaz con la máquina virtual de Java, después pueden ir los argumentos necesarios para la función, en este caso, \texttt{finger} que es un entero y representa al dedo a ser verificado (0-pulgar izquierdo, 1-índice izquierdo, 2-medio izquierdo, ... 9-meñique derecho), la cadena \texttt{p} indica la ruta donde se encuentra almacenada la información de las huellas digitales, y \texttt{u} es el usuario a verificar.
 
-Una de las partes más importantes es poder ingresar al sistema punto de venta la información de entrada/salida de un empleado. No se tenía documentado exactamente cómo y dónde es que el sistema ingresa está información, por lo que se tuvo que revisar el código fuente para conocerlo. Para ingresar la entrada/salida el empleado debe teclear su clave en el sistema y posteriormente ingresar a las opciones de \textit{b) Entrada de Empleado} o \textit{c) Salida de Empleado}.
+Una de las partes más importantes es poder ingresar al sistema punto de venta la información de entrada/salida de un empleado. No se tenía documentado exactamente cómo y dónde es que el sistema ingresa está información, por lo que tuve que revisar el código fuente para conocerlo. Para ingresar la entrada/salida el empleado debe teclear su clave en el sistema y posteriormente ingresar a las opciones de \textit{b) Entrada de Empleado} o \textit{c) Salida de Empleado}.
 
 \begin{figure}[htb]
  \begin{center}
@@ -834,16 +570,16 @@ Para el almacenamiento de las huellas digitales o el enrolamiento, se utiliza un
 
 Es importante mencionar, que la biblioteca \texttt{libfprint} es capaz de obtener una fotografía de la huella digital, ésta no es utilizada para el análisis de las minutias, \texttt{libfprint} genera un archivo de datos binarios, el cual no puede ser leído por un editor de textos. La imagen de la huella digital es eliminada, ya que de acuerdo a la nueva \textit{Ley de Protección de Datos Personales en Posesión de los Particulares} se debe tener un mayor cuidado en el manejo en este tipo de datos para no caer en problemas legales.
 
-Es por esto que se buscó un dispositivo más especializado, el cual se describe con más detalle en la sección \ref{sec:lector_zksoftware}.
+Es por esto que busqué un dispositivo más especializado, el cual se describe con más detalle en la sección \ref{sec:lector_zksoftware}.
 
-En las pruebas realizadas en este dispositivo se observó que la verificación exitosa depende de la forma en que se haya capturado la huella digital en el enrolamiento. Debido a que el software únicamente usa una sola huella digital para obtener las minutias, al colocar de otra forma el dedo, ocasiona que muchas minutias no correspondan y arroje como resultado que la huella digital no corresponde. Esto ocasionaría un enorme problema en los restaurantes, elevando el número de soportes técnicos diariamente debido a que los empleados no pueden registrar su entrada ni entrar al sistema.
+En las pruebas realizadas en este dispositivo observé que la verificación exitosa depende de la forma en que se haya capturado la huella digital en el enrolamiento. Debido a que el software únicamente usa una sola huella digital para obtener las minutias, al colocar de otra forma el dedo, ocasiona que muchas minutias no correspondan y arroje como resultado que la huella digital no corresponde. Esto ocasionaría un enorme problema en los restaurantes, elevando el número de soportes técnicos diariamente debido a que los empleados no pueden registrar su entrada ni entrar al sistema.
 
-\subsubsection{Prototipo 2: Lector ZK Software}
+\subsection{Prototipo 2: Lector ZK Software}
 \label{sec:lector_zksoftware}
 
 Existen en el mercado una gran variedad de dispositivos lectores de huella digitales, que además de almacenarlas y verificarlas, son capaces de generar diversos reportes de acuerdo a la información de sus registros utilizando software externo o dentro del dispositivo. Una de las principales características que deben tener los lectores para poder integrarlos fácilmente al sistema en el restaurante, es que se puedan descargar los registros a la computadora sin tener un software intermediario, el cual siempre es para Windows. 
 
-Se encontró el lector de huellas digitales de la compañía ZK Software modelo U300 el cual cuenta con un puerto Ethernet RJ45 y USB. Es capaz de almacenar 1600 huellas digitales, 50000 registros, tiene sistema operativo GNU/Linux.
+Encontré el lector de huellas digitales de la compañía ZK Software modelo U300 el cual cuenta con un puerto Ethernet RJ45 y USB. Es capaz de almacenar 1600 huellas digitales, 50000 registros, tiene sistema operativo GNU/Linux.
 
 \begin{figure}[htb]
  \begin{center}
