@@ -12,7 +12,7 @@ La oportunidad de negocio consiste en poder tener la certeza de que la persona q
 
 Las huellas digitales se pueden considerar como una tarjeta de identidad visible que la naturaleza nos dio. Éstas poseen un diseño único que representan únicamente a una persona. Las huellas digitales son diminutas arrugas en la piel de nuestros dedos, tanto de las manos como de los pies, las cuales resultaron de la evolución de nuestros ancestros y cuya finalidad es la de poder sujetar de mejor manera objetos. Además sirven para poder transmitir mejor las vibraciones lo que ocasiona que se puedan distinguir las características de las superficies.
 
-Las huellas digitales se forman de acuerdo a una combinación de la carga genética del individuo y los factores ambientales en los cuales se desarrolla, por lo que es casi imposible que el patrón de una huella digital se repita. Como consecuencia, las huellas digitales son únicas en cada individuo, incluso en gemelos. Dos huellas digitales pueden parecer iguales a simple vista, pero si se observan con más cuidado, ya sea por un investigador entrenado o un software especializado, éstos pueden encontrar las diferencias. Se les llama \textit{minutias} a las características principales de una huella digital, con las que se pueden realizar comparaciones con otras huellas. Ejemplos de minutias son, que si una arruga tiene forma de Y, de U, el abrupto final de una arruga, etc. Las minutias son los patrones que se buscan y analizan en los programas especializados en reconocimiento de huellas digitales.
+Las huellas digitales se forman de acuerdo a una combinación de la carga genética del individuo y los factores ambientales en los cuales se desarrolla, por lo que es casi imposible que el patrón de una huella digital se repita. Como consecuencia, las huellas digitales son únicas en cada individuo, incluso en gemelos. Dos huellas digitales pueden parecer iguales a simple vista, pero si se observan con más cuidado, ya sea por un investigador entrenado o un software especializado, éstos pueden encontrar las diferencias. Se les llama \textit{minutias} a las características principales de una huella digital, con las que se pueden realizar comparaciones con otras huellas. Ejemplos de minutias son, que si una arruga tiene forma de Y, de U, el abrupto final de una arruga, etc. Las minutias son los patrones que se buscan y analizan en los programas especializados en reconocimiento de huellas digitales. En la figura \ref{fig:finger_print_1} se muestra a detalle una huella digital.
 
 \begin{figure}[htb]
  \begin{center}
@@ -84,7 +84,7 @@ Haciendo una investigación se encuentra que existe software libre que permite l
  \item Permite el registro de huellas digitales de una persona (enrolamiento) y su verificación.
 \end{itemize}
 
-Los controladores propietarios de \textit{DigitalPersona} y su kit de desarrollo de software (SDK\footnote{Software Development Kit}) envían las imágenes cifradas a través de USB. Debido a que el método de cifrado es desconocido,  \texttt{libfprint} envía las imágenes sin esta protección.
+Los controladores propietarios de \textit{DigitalPersona} y su kit de desarrollo de software (SDK\footnote{Software Development Kit}) envían las imágenes cifradas a través de USB. Debido a que el método de cifrado es desconocido,  \texttt{libfprint} envía las imágenes sin esta protección. En la figura \ref{fig:finger_print_3} se muestra una huella digital adquirida por el dispositivo.
 
 \begin{figure}[htb]
  \begin{center}
@@ -120,7 +120,7 @@ JNIEXPORT jint JNICALL Java_PRBAS_PRBAttendance_verify
 
 El apuntador \texttt{JNIEnv *env}, junto con \texttt{jobject obj} siempre deben ir al programar con JNI, ya que son interfaz con la máquina virtual de Java, después pueden ir los argumentos necesarios para la función, en este caso, \texttt{finger} que es un entero y representa al dedo a ser verificado (0-pulgar izquierdo, 1-índice izquierdo, 2-medio izquierdo, ... 9-meñique derecho), la cadena \texttt{p} indica la ruta donde se encuentra almacenada la información de las huellas digitales, y \texttt{u} es el usuario a verificar.
 
-Una de las partes más importantes es poder ingresar al sistema punto de venta la información de entrada/salida de un empleado. No se tenía documentado exactamente cómo y dónde es que el sistema ingresa está información, por lo que tuve que revisar el código fuente para conocerlo. Para ingresar la entrada/salida el empleado debe teclear su clave en el sistema y posteriormente ingresar a las opciones de \textit{b) Entrada de Empleado} o \textit{c) Salida de Empleado}.
+Una de las partes más importantes es poder ingresar al sistema punto de venta la información de entrada/salida de un empleado. No se tenía documentado exactamente cómo y dónde es que el sistema ingresa está información, por lo que tuve que revisar el código fuente para conocerlo. Para ingresar la entrada/salida el empleado debe teclear su clave en el sistema y posteriormente ingresar a las opciones de \textit{b) Entrada de Empleado} o \textit{c) Salida de Empleado}. En la figura \ref{fig:finger_print_4} se muestra la pantalla donde los asociados realizan su entrada o salida.
 
 \begin{figure}[htb]
  \begin{center}
@@ -169,7 +169,7 @@ La \texttt{l} es para el tipo de dato \texttt{long}, la \texttt{h} para \texttt{
 \end{figure}
 
 
-En la figura \ref{fig:finger_print_5} se observa la interfaz en Swing de la aplicación de Entrada/Salida. Como se puede observar, ésta cuenta con la fecha y hora actual, con la cual se almacenará el registro. Al seleccionar el asociado se muestra una lista de todos los empleados registrados en el sistema punto de venta, los cuales son extraídos a través de comandos de SUS.
+En la figura \ref{fig:finger_print_5} se observa la interfaz en Swing de la aplicación de Entrada/Salida. Como se puede observar, ésta cuenta con la fecha y hora actual, con la cual se almacenará el registro. Al seleccionar el asociado se muestra una lista de todos los empleados registrados en el sistema punto de venta, los cuales son extraídos a través de comandos de SUS. En la figura \ref{fig:finger_print_6} se muestra el despliegue de la lista de asociados.
 
 \begin{figure}[htb]
  \begin{center}
@@ -194,7 +194,7 @@ En las pruebas realizadas en este dispositivo observé que la verificación exit
 
 Existen en el mercado una gran variedad de dispositivos lectores de huella digitales, que además de almacenarlas y verificarlas, son capaces de generar diversos reportes de acuerdo a la información de sus registros utilizando software externo o dentro del dispositivo. Una de las principales características que deben tener los lectores para poder integrarlos fácilmente al sistema en el restaurante, es que se puedan descargar los registros a la computadora sin tener un software intermediario, el cual siempre es para Windows. 
 
-Encontré el lector de huellas digitales de la compañía ZK Software modelo U300 el cual cuenta con un puerto Ethernet RJ45 y USB. Es capaz de almacenar 1600 huellas digitales, 50000 registros, tiene sistema operativo GNU/Linux.
+Encontré el lector de huellas digitales de la compañía ZK Software modelo U300 (ver figura \ref{fig:finger_print_7}) el cual cuenta con un puerto Ethernet RJ45 y USB. Es capaz de almacenar 1600 huellas digitales, 50000 registros, tiene sistema operativo GNU/Linux.
 
 \begin{figure}[htb]
  \begin{center}
@@ -204,7 +204,7 @@ Encontré el lector de huellas digitales de la compañía ZK Software modelo U30
  \label{fig:finger_print_7}
 \end{figure}
 
-Una de las principales características de este lector, es que una vez configurada su dirección IP, se puede acceder a una página web para consultar los registros almacenados. Se pueden obtener registros del día actual, de ayer, de la semana pasada, o bien especificar la fecha para desplegarlos. 
+Una de las principales características de este lector, es que una vez configurada su dirección IP, se puede acceder a una página web para consultar los registros almacenados como se muestra en la figura \ref{fig:finger_print_8}. Se pueden obtener registros del día actual, de ayer, de la semana pasada, o bien especificar la fecha para desplegarlos. 
 
 \begin{figure}[htb]
  \begin{center}
@@ -214,7 +214,7 @@ Una de las principales características de este lector, es que una vez configura
  \label{fig:finger_print_8}
 \end{figure}
 
-En la figura \ref{fig:finger_print_8} se observa la página para seleccionar los usuarios almacenados en el lector y poder consultar sus registros de acuerdo a la fecha indicada. El procedimiento para obtener los datos y el registro de los empleados es el siguiente:
+El procedimiento para obtener los datos y el registro de los empleados es el siguiente:
 
 \begin{enumerate}
  \item Mediante cURL\footnote{cURL es una herramienta para usar en un intérprete de comandos para transferir archivos con sintaxis URL, soporta FTP, FTPS, HTTP, HTTPS, TFTP, SCP, SFTP, Telnet, DICT, FILE y LDAP.} se debe obtener la cookie de la página web del lector de huellas digitales, para poder consultar los registros.
@@ -265,9 +265,9 @@ El gerente del restaurante no tiene acceso a la página web del lector biométri
  \label{fig:finger_print_ereports}
 \end{figure}
 
-A la fecha el desarrollo ya se encuentra funcionando al 100\% y en prueba en dos restaurantes, no se ha liberado a más centros debido a que el área de Operaciones y Legal debe realizar adecuaciones a los contratos actuales, así como la de elaborar un plan de entrenamiento a los empleados.
+A la fecha el desarrollo ya se encuentra funcionando al 100\% y en prueba en dos restaurantes, no se ha liberado a más centros debido a que el área de Operaciones y Legal debe realizar adecuaciones a los contratos actuales, así como la de elaborar un plan de entrenamiento a los empleados por parte del área de Entrenamiento con asesoría de Operaciones y Desarrollo a Restaurantes.
 
-Es muy importante que en el momento del enrolamiento o la verificación se coloque de manera adecuada el dedo, ya que de otra manera, existirán errores de captura/lectura. La correcta forma de colocar el dedo en el centro del lector de una manera plana y firme.
+Es muy importante que en el momento del enrolamiento o la verificación se coloque de manera adecuada el dedo, ya que de otra manera, existirán errores de captura/lectura. La correcta forma de colocar el dedo en el centro del lector de una manera plana y firme como se muestra en la figura \ref{fig:finger_print_10}.
 
 \begin{figure}[htb]
  \begin{center}
@@ -277,7 +277,7 @@ Es muy importante que en el momento del enrolamiento o la verificación se coloq
  \label{fig:finger_print_10}
 \end{figure}
 
-Es considerada una mala colocación del dedo en el lector, cuando el dedo no se encuentra completamente plano, no se encuentra en el centro del lector, ya sea que esté muy a la derecha, izquierda o abajo. O cuando el dedo no haga contacto la huella digital con el lector.
+Es considerada una mala colocación del dedo en el lector, cuando el dedo no se encuentra completamente plano, no se encuentra en el centro del lector, ya sea que esté muy a la derecha, izquierda o abajo. O cuando el dedo no haga contacto la huella digital con el lector como se muestra en la figura \ref{fig:finger_print_11}.
 
 \begin{figure}[htb]
  \begin{center}

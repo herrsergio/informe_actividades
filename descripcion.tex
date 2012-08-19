@@ -24,7 +24,19 @@ Entre los servicios proporcionados por el área de Desarrollo de Sistemas de Res
 \section{Descripción del Sistema en restaurantes}
 \label{sec:descripcion}
 
-Cada uno de los restaurantes cuenta con una computadora, en la cual se efectúan diversos procesos como son:
+Cada uno de los restaurantes cuenta con una computadora, cuyas características pueden variar en restaurantes, pero las mínimas especificaciones técnicas son:
+
+\begin{itemize}
+ \item 1 gigabyte en memoria RAM.
+ \item Procesador a 1.5 GHz.
+ \item Disco duro de 80 gigabytes.
+ \item Monitor a color de 15 pulgadas.
+ \item Puerto AGP\footnote{Accelerated Graphics Port}.
+ \item 2 puertos PCI\footnote{Peripheral Component Interconnect}.
+\end{itemize}
+
+
+En la computadora de cada uno de los restaurantes se efectúan diversos procesos como son:
 
 \begin{itemize}
  \item Registro y procesamiento de la venta.
@@ -81,6 +93,7 @@ Algunas características del kernel de Linux son:
  \item Tiene soporte a una gran cantidad de sistemas de archivos (ext2, ext3, ext4, ReiserFS, XFS, JFS, FAT32, etc.).
 \end{itemize}
 
+El kernel utilizado en los restaurantes no ha recibido ninguna modificación por parte del equipo de desarrollo, únicamente se han cambiado los parámetros por default, como mensajes de depuración de puertos USB.
 
 \subsection{Apache Tomcat}
 \label{sec:tomcat}
@@ -120,7 +133,7 @@ Mozilla Firefox es un navegador web disponible para varios sistemas operativos c
  \item Navegación por pestañas.
  \item Corrector ortográfico.
  \item Navegación privada.
- \item Soporte de complementes (plug-ins) desarrollados por terceros para incrementar la funcionalidad del navegador.
+ \item Soporte de complementos (plug-ins) desarrollados por terceros para incrementar la funcionalidad del navegador.
  \item Administrador de descargas.
 \end{itemize}
 
@@ -148,7 +161,7 @@ Posee diccionarios ortográficos en varios idiomas. Puede usar extensiones para 
 \subsection{Sistema Punto de Venta SUS}
 \label{sec:sus}
 
-El sistema punto de venta utilizado tanto en PH como en KFC se llama SUS, el cual fue desarrollado por el área de desarrollo de Yum Restaurants de Estados Unidos. Nosotros contamos con el código fuente, con el cual podemos corregir errores, añadir funcionalidades o mejorar las ya existentes. El punto de venta no es software libre.
+El sistema punto de venta utilizado tanto en PH como en KFC se llama SUS, el cual fue desarrollado por el área de desarrollo de Yum Restaurants de Estados Unidos. Nosotros contamos con el código fuente, con el cual podemos corregir errores, añadir funcionalidades o mejorar las ya existentes. El punto de venta no es software libre. El cambio a la configuración del punto de venta ocurre únicamente para realizar modificaciones a la seguridad (cambio de permisos para visualizar algunas opciones).
 
 SUS es capaz de realizar toma de ordenes, el despacho de estas ordenes, retiros, funciones de control y actividades administrativas propias de un restaurante.
 
@@ -179,7 +192,7 @@ Las funciones de esta parte del punto de venta permiten realizar retiros de dine
 \subsection{e-Reports}
 \label{sec:ereports}
 
-\textit{e-Reports} es una herramienta desarrollada para consultar reportes via web, mediante Firefox, utilizando el servidor Tomcat junto con la base de datos de PostgreSQL. Cada restaurante cuenta con este reporteador para realizar distintas actividades, como son, la consulta de su inventario, la captura de gastos semivariables, conocer el número de transacciones mediante gráficas, etc. Es una de las herramientas más usadas en los restaurantes, junto con el punto de venta, debido a la gran cantidad de información que se puede consultar. Al ser una herramienta web, ésta puede ser consultada desde cualquier computadora que pertenezca a la VPN y conozca la clave para ingresar.
+\textit{e-Reports} es una herramienta desarrollada por el área de Desarrollo a Restaurantes para consultar reportes via web, mediante Firefox, utilizando el servidor Tomcat junto con la base de datos de PostgreSQL. Cada restaurante cuenta con este reporteador para realizar distintas actividades, como son, la consulta de su inventario, la captura de gastos semivariables, conocer el número de transacciones mediante gráficas, etc. Es una de las herramientas más usadas en los restaurantes, junto con el punto de venta, debido a la gran cantidad de información que se puede consultar. Al ser una herramienta web, ésta puede ser consultada desde cualquier computadora que pertenezca a la VPN y conozca la clave para ingresar.
 
 Los reportes son programados en JSP, JavaScript y en algunos casos se hace uso de scripts externos desarrollados en Perl y Bash principalmente. Además, se cuenta con una API desarrollada especialmente para e-Reports, en la cual ya existen métodos para la conexión a base de datos, la creación de tablas dinámicas, conversión de resultados de consulta de base de datos a arreglos de JavaScript, etc. El framework de JavaScript utilzado es BlueShoes\footnote{http://www.blueshoes.org/en/javascript/}.
 
@@ -194,7 +207,7 @@ Los reportes son programados en JSP, JavaScript y en algunos casos se hace uso d
 \subsection{Reporteador}
 \label{sec:reporteador}
 
-Existe otra herramienta para consultar reportes via web llamado \textit{Reporteador}, el cual, a diferencia de \textit{e-Reports}, es usado en mayor parte de los reportes que posee, para desplegar información relacionada directamente con reportes generados por el mismo punto de venta. El despliegue de estos reportes es programado en HTML, PHP y algunos CGI's\footnote{Common Gateway Interface} en Python. Se puede decir que \textit{e-Reports} y el \textit{Reporteador} se complementan, pero en un futuro, el plan es migrar todos los reportes de este último, para concentrar todo en \textit{e-Reports}.
+Existe otra herramienta desarrollada por el área de Desarrollo a Restaurantes para consultar reportes vía web llamado \textit{Reporteador}, el cual, a diferencia de \textit{e-Reports}, es usado en mayor parte de los reportes que posee, para desplegar información relacionada directamente con reportes generados por el mismo punto de venta. El despliegue de estos reportes es programado en HTML, PHP y algunos CGI's\footnote{Common Gateway Interface} en Python. Se puede decir que \textit{e-Reports} y el \textit{Reporteador} se complementan, pero en un futuro, el plan es migrar todos los reportes de este último, para concentrar todo en \textit{e-Reports}.
 
 El \textit{Reporteador} posee una clasificación de reportes, la cual está conformada por:
 
@@ -270,7 +283,28 @@ A diferencia del sistema en PH, se cuentan con cajas registradoras en lugar de t
 \section{Algunos Proyectos desarrollados}
 \label{chap:desarrollo}
 
-A continuación se presentan algunas actividades desarrolladas en la empresa.
+\subsection{Metodología de desarrollo de software}
+\label{sec:metodologia}
+
+En el área de Desarrollo a restaurantes no se cuenta con una metodología específica para la elaboración de proyectos. Los pasos a seguir para el desarrollo de un nuevo sistema son:
+
+\begin{itemize}
+ \item Reunión con el cliente para saber sus necesidades.
+ \item Análisis de los requisitos del sistema.
+ \item Diseño del sistema.
+ \item Codificación del sistema.
+ \item Pruebas en un ambiente especial (ambiente de pruebas).
+ \item Pruebas en un ambiente de producción (restaurante).
+ \item Retroalimentación por parte del cliente.
+ \item En caso necesario, modificación y/o corrección del sistema a petición del cliente.
+ \item Siguiente fase de pruebas, donde se libera a un grupo pequeño, 5 o 10 restaurantes en un periodo de una semana; posteriormente se libera a otro grupo de restaurantes, sino hay algún problema, se continua con el siguiente paso.
+ \item Liberación a nivel nacional.
+ \item Mantenimiento.
+\end{itemize}
+
+En algunas ocasiones, la necesidad del cliente para la rápida liberación de un sistema y con previa autorización del director de Sistemas, éste se puede liberar sin cubrir las etapas de prueba.
+
+A continuación se presentan algunas actividades desarrolladas por mi en la empresa.
 
 \subsection{Auditoría Electrónica}
 \label{sec:auditoria}
@@ -295,8 +329,9 @@ El concentrador de puertos seriales es el modelo AccelePort  Xem de la marca Dig
  \label{fig:digi}
 \end{figure}
 
-La configuración que indica el fabricante Digi para realizar un cable para impresora RJ-45 a DB-9 es el siguiente:
+La configuración que indica el fabricante Digi para realizar un cable para impresora RJ-45 a DB-9 es la que se muestra en la tabla \ref{tab:digi}.
 
+\begin{table}
 
 \begin{center}
  \resizebox{15cm}{!}{
@@ -322,13 +357,20 @@ La configuración que indica el fabricante Digi para realizar un cable para impr
    \hline
   \end{tabular}
  }
+ \caption{Configuración RJ-45 a DB-9 para DIGI}
+ \label{tab:digi}
 \end{center}
+ 
+\end{table}
+
 
 Para poder saber qué datos manda la caja hice uso de un cable con el que se pueda leer la comunicación de la caja registradora (DB-9) al impresor de auditoría (DB-25). Por lo que abrí el cable e inserté las líneas descritas en la configuración anterior para un RJ-45, de esta manera se cuenta con un cable capaz de leer los datos mandados por la caja registradora. Para la lectura de estos datos utilice el software \textit{minicom}. Este es un programa de software libre utilizado para monitorear el puerto serie, análogo al \textit{Hyperterminal} de Windows. Los resultados indicaron que la caja manda el ticket con únicamente la información necesaria como número de productos, el producto, el costo del producto, el subtotal, el total, fecha, hora, número de ticket y el cajero que lo tomó. Además de estos datos, se cuentan con caracteres de control especiales para el impresor.
 
 Otra característica que observé fue que la caja constantemente se comunica con el impresor para saber si está conectado y este último le manda una respuesta. Por lo que el programa desarrollado en C tendría que: limpiar los caracteres de control, y emular la comunicación que establece la caja registradora par evitar que marque error.
 
-El cable original que va de la caja (DB-9) al impresor (DB-25) tiene la siguiente configuración:
+El cable original que va de la caja (DB-9) al impresor (DB-25) tiene la configuración mostrada en la tabla \ref{tab:originaldigi}
+
+\begin{table}[h]
 
 \begin{center}
   \begin{tabular}{|c|c|c|c|}
@@ -350,10 +392,14 @@ El cable original que va de la caja (DB-9) al impresor (DB-25) tiene la siguient
    7 y 8 & CTS y RTS & 8 & DCT \\
    \hline
   \end{tabular}
+  \caption{Configuración original caja a impresor}
+  \label{tab:originaldigi}
 \end{center}
+\end{table}
 
-De acuerdo a la configuración anterior y la indicada por el fabricante para el cable DB-9 a RJ-45, realicé la siguiente configuración de cable:
+De acuerdo a la configuración anterior y la indicada por el fabricante para el cable DB-9 a RJ-45, realicé la configuración de cable mostrada en la tabla \ref{tab:nuevaconf}.
 
+\begin{table}[h]
 \begin{center}
  \begin{tabular}{|c|c|}
   \hline
@@ -376,7 +422,10 @@ De acuerdo a la configuración anterior y la indicada por el fabricante para el 
   8 & 6 \\
   \hline
  \end{tabular}
+ \caption{Nueva configuración de cable}
+ \label{tab:nuevaconf}
 \end{center}
+\end{table}
 
 Desarrollé en lenguaje C el programa que lee los datos de la caja y además emula la respuesta del impresor a la caja. El programa \textit{portAudit} recibe como argumento el puerto serie del concentrador en el cual está conectado el cable. El programa \textit{portAudit} recibe como variable de ambiente el tipo de caja: \texttt{PORT\_TIPO\_CAJA=790} y \texttt{export PORT\_TIPO\_CAJA=5500} ya que los caracteres de control son distintos para cada caja registradora. Creé un script encargado de establecer estas variables, la configuración del puerto serial (velocidad, paridad, etc.) y la ejecución del binario.
 
@@ -444,7 +493,7 @@ NACHO
          Gracias por su compra           
 \end{Verbatim}
 
-Para la verificación del correcto funcionamiento del \texttt{portAudit} creé un script que valida que todas las cajas estén registrando auditoría, y que no falte ningún ticket. Esto se realiza verificando primero, la existencia de la auditoría de las cajas en donde ya haya habido venta, después se busca el número de ticket en los archivos generados por la interfase que convierte la información de la caja registradora al punto de venta, y se revisa que en la auditoría correspondiente a la caja se encuentre. En caso de que no esté en ejecución el \texttt{portAudit}, que no se estén generando los archivos de auditoría o falten tickets de auditoría se genera un correo electrónico de manera automática para avisar de la situación correspondiente. Este script se ejecuta mediante CRON cada veinte minutos.
+Para la verificación del correcto funcionamiento del \texttt{portAudit} creé un script que valida que todas las cajas estén registrando auditoría, y que no falte ningún ticket. Esto se realiza verificando primero, la existencia de la auditoría de las cajas en donde se haya realizado venta. Después se busca el número de ticket en los archivos generados por la interfase que convierte la información de la caja registradora al punto de venta. Se revisa que en la auditoría correspondiente a la caja se encuentre el ticket. En caso de que no esté en ejecución el \texttt{portAudit}, que no se estén generando los archivos de auditoría o que falten tickets de auditoría se genera un correo electrónico de manera automática para avisar de la situación correspondiente. Este script se ejecuta mediante CRON cada veinte minutos.
 
 Ejemplo de correo electrónico cuando falta el archivo de auditoría de alguna caja:
 
@@ -479,7 +528,7 @@ Falta(n) archivo(s) de auditoria de caja(s):
 * Revisar concentrador
 \end{Verbatim}
 
-El gerente del restaurante puede revisar los tickets de auditoría y del punto de venta mediante un reporte tipo web, en donde le indica la fecha que requiere consultar y como opción tiene la de ingresar el número de ticket a buscar, en caso de que no ingrese este dato, se despliegan todos los tickets del día. Esto se logra gracias a que los tickets de auditoría son almacenados en un directorio específico. El reporte consulta el archivo de acuerdo a la fecha seleccionada. 
+El gerente del restaurante puede revisar los tickets de auditoría y del punto de venta mediante un reporte tipo web, en donde le indica la fecha que requiere consultar y como opción tiene la de ingresar el número de ticket a buscar, en caso de que no ingrese este dato, se despliegan todos los tickets del día. Esto se logra gracias a que los tickets de auditoría son almacenados en un directorio específico. El reporte consulta el archivo de acuerdo a la fecha seleccionada. En la figura \ref{fig:rep_audit_ereports} se muestra la salida del reporte.
 
 \begin{figure}[htb]
  \begin{center}
@@ -489,7 +538,7 @@ El gerente del restaurante puede revisar los tickets de auditoría y del punto d
  \label{fig:rep_audit_ereports}
 \end{figure}
 
-Con esta solución se ha tenido un gran ahorro económico derivado de dejar de consumir papel, cintas de tinta, impresores y su mantenimiento. Igualmente se tiene un impacto benéfico a la ecología, ya que se deja de utilizar una cantidad importante de papel, teniendo una auditoría \textit{paperless}.
+Con esta solución se ha tenido un gran ahorro económico al evitar el consumo de papel, cintas de tinta, impresores y su mantenimiento. Igualmente se tiene un impacto benéfico a la ecología, ya que se deja de utilizar una cantidad importante de papel, teniendo una auditoría \textit{paperless}.
 
 \subsection{Reporte de Estimado de Usos Ideales en KFC}
 \label{sec:usos_ideales_kfc}
@@ -502,7 +551,7 @@ El uso ideal se conoce una vez que han cerrado las ventas para el día y se gene
 
 Esto ocasiona que el gerente ocupe mucho tiempo en la búsqueda de estos usos ideales, por lo que desarrollé un reporte que automatice esta actividad.
 
-Para facilitar la elaboración de este reporte, creé una tabla en la base de datos de PostgreSQL que almacene los usos ideales por fecha y por identificador de producto. Estos datos se obtiene de un comando que ya existe en el sistema y mediante un script en Perl se parsean los resultados y se ingresan a la base de datos. Esta carga se realiza de manera diaria, una vez que se han generado los usos ideales del día anterior. 
+Para facilitar la elaboración de este reporte, creé una tabla en la base de datos de PostgreSQL que almacene los usos ideales por fecha y por identificador de producto. Estos datos se obtiene de un comando que ya existe en el sistema y mediante un script en Perl se leen secuencialmente los resultados y se ingresan a la base de datos. Esta carga se realiza de manera diaria, una vez que se han generado los usos ideales del día anterior. 
 
 Esta es la descripción de la tabla de PostgreSQL encargada de almacenar los usos ideales:
 
@@ -541,7 +590,7 @@ Creé archivos de configuración de productos clasificados de acuerdo a la líne
  \item Servicio.conf
 \end{itemize}
 
-En ellos se encuentra el número de inventario del producto a deplegar en el reporte. A continuación se muestra una parte del archivo de \texttt{Servicio.conf}:
+En ellos se encuentra el número de inventario del producto a deplegar en el reporte. A continuación se muestra como ejemplo una parte del archivo de \texttt{Servicio.conf}:
 
 \begin{Verbatim}[fontsize=\small]
 #####################
@@ -571,7 +620,7 @@ Teniendo estos archivos de configuración resulta muy fácil añadir o quitar pr
 
 El reporte obtiene de la tabla \texttt{op\_gt\_real\_sist\_mng} el pronóstico de número de transacciones y las transacciones reales más cercanas a la fecha seleccionada.
 
-A continuación se muestra una pantalla de resultados del reporte:
+En la figura \ref{fig:usos_ideales_kfc} se muestra una pantalla de resultados del reporte de usos diarios en KFC:
 
 \begin{figure}[htb]
  \begin{center}
@@ -605,7 +654,7 @@ Los datos que deben ser ingresados por cada terminal bancaria son:
  \item El campo de ``Cierre Fallido`` se utiliza en caso de que haya existido un error en la terminal bancaria, por ejemplo, por problemas de comunicación.
 \end{itemize}
 
-Una vez ingresados estos datos, se debe presionar el botón de \texttt{Obtener montos totales}, con esta acción, se obtiene la cantidad total de dinero registrado en las terminales bancarias y el total de ventas cobradas con tarjeta de crédito/débito que se tienen registrados en el sistema punto de venta. Estos totales, deben coincidir, en caso de no hacerlo, se muestra un mensaje indicando la diferencia y sugiriendo revisar los datos, y si es el caso, corregirlos. Después se debe presionar el botón de \texttt{Guardar y confirmar datos}, en esta parte es cuando se le solicita al asociado, elegir su nombre de usuario y teclear su contraseña. Una vez realizado esto de manera correcta se almacenarán los datos ingresados y en caso de haber exisitido diferencia entre los montos totales del sistema punto de venta y el de las terminales bancarias se manda un correo electrónico automático al restaurante, al gerente de zona y a las personas del área de Ingresos correspondientes.
+Una vez ingresados estos datos, se debe presionar el botón de \texttt{Obtener montos totales}, con esta acción, se obtiene la cantidad total de dinero registrado en las terminales bancarias y el total de ventas cobradas con tarjeta de crédito/débito que se tienen registrados en el sistema punto de venta. Estos totales, deben coincidir, en caso de no hacerlo, se muestra un mensaje indicando la diferencia y sugiriendo revisar los datos, y si es el caso, corregirlos. Después se debe presionar el botón de \texttt{Guardar y confirmar datos}, en esta parte es cuando se le solicita al asociado, elegir su nombre de usuario y teclear su contraseña. Una vez realizado esto de manera correcta se almacenarán los datos ingresados y en caso de haber exisitido diferencia entre los montos totales del sistema punto de venta y el de las terminales bancarias se manda un correo electrónico automático al restaurante, al gerente de zona y a las personas del área de Ingresos correspondientes. En la figura \ref{fig:cierre_lote_1} se muestra la pantalla del reporte.
 
 
 \begin{figure}[htb]
@@ -626,7 +675,7 @@ Existe además, una alarma que funciona a manera de recordatorio, en caso de que
  \label{fig:cierre_lote_4}
 \end{figure}
 
-Cada cierre de lote realizado en \textit{e-Reports} es almacenado en un archivo, con lo cual se puede tener un registro de este reporte. A continuación se muestra un ejemplo de archivo almacenado:
+Cada cierre de lote realizado en \textit{e-Reports} es almacenado en un archivo de texto plano, con lo cual se puede tener un registro de este reporte. A continuación se muestra un ejemplo de archivo almacenado:
 
 \begin{Verbatim}[fontsize=\small]
 222|1|11-05-14|11-05-14|20:52|4874.20|5190.2|5190.2|0.0|28|SENI|14-5-2011 21:16:13
